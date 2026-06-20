@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RTL Loan Sizer / Pricer</title>
+<style>
+/* ════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — single source of truth, all values via CSS vars
+   ════════════════════════════════════════════════════════════════ */
+:root{
+  --color-primary:#051C2C;
+  --color-accent:#2251FF;
+  --color-bg:#F5F5F2;
+  --color-muted:#888888;
+  --color-body-text:#1A1A2E;
+  --color-positive:#00C853;
+  --color-negative:#D32F2F;
+
+  --color-surface:#FFFFFF;
+  --color-input-bg:#FFFDE7;
+  --color-border:#E8E8E6;
+
+  --nav-bg:#FFFFFF;
+  --nav-border:#E8E8E6;
+  --nav-text:#051C2C;
+  --nav-text-inactive:rgba(5,28,44,.45);
+
+  --table-header-bg:rgba(5,28,44,.04);
+  --table-header-sep:rgba(5,28,44,.12);
+
+  --insight-bg:rgba(34,81,255,.04);
+  --anomaly-bg:rgba(211,47,47,.04);
+
+  --accent-10:rgba(34,81,255,.10);
+  --accent-04:rgba(34,81,255,.04);
+
+  --font-heading:'EB Garamond','Garamond',Georgia,'Times New Roman',serif;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',Helvetica,Arial,sans-serif;
+
+  --text-page-title:28px;
+  --text-section:15px;
+  --text-kpi-value:34px;
+  --text-table-head:12px;
+  --text-body:13px;
+  --text-label:11px;
+
+  --tracking-display:-0.03em;
+  --tracking-heading:-0.02em;
+  --tracking-label:0.06em;
+
+  --space-xs:4px;
+  --space-sm:8px;
+  --space-md:16px;
+  --space-lg:24px;
+  --space-xl:40px;
+  --space-2xl:64px;
+
+  --radius-sm:6px;
+  --radius-md:10px;
+  --radius-lg:14px;
+  --radius-pill:100px;
+
+  --shadow-sm:0 1px 2px rgba(5,28,44,.04),0 2px 8px rgba(5,28,44,.06);
+  --shadow-md:0 2px 4px rgba(5,28,44,.04),0 8px 24px rgba(5,28,44,.08),0 1px 0 rgba(255,255,255,.6) inset;
+  --shadow-lg:0 4px 8px rgba(5,28,44,.06),0 16px 48px rgba(5,28,44,.14),0 1px 0 rgba(255,255,255,.5) inset;
+  --shadow-nav:0 1px 3px rgba(5,28,44,.06),0 1px 0 rgba(5,28,44,.08);
+
+  --ease-standard:cubic-bezier(.25,.46,.45,.94);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --ease-decel:cubic-bezier(0,0,.2,1);
+  --ease-accel:cubic-bezier(.4,0,1,1);
+  --dur-fast:150ms;
+  --dur-normal:250ms;
+  --dur-page:220ms;
+
+  --nav-height:56px;
+  --row-height-body:40px;
+  --row-height-header:44px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+html,body{background:var(--color-bg);}
+body{
+  color:var(--color-body-text);
+  font-family:var(--font-body);
+  font-size:var(--text-body);
+  line-height:1.6;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+
+/* ── Nav ─────────────────────────────────────────────────────── */
+.nav{
+  position:sticky; top:0; z-index:100;
+  height:var(--nav-height);
+  background:var(--nav-bg);
+  border-bottom:1px solid var(--nav-border);
+  box-shadow:var(--shadow-nav);
+  display:flex; align-items:center;
+}
+.nav-inner{
+  max-width:1400px; width:100%; margin:0 auto;
+  padding:0 var(--space-xl);
+  display:flex; align-items:center; justify-content:space-between;
+  height:100%;
+}
+.brand{
+  display:flex; align-items:baseline; gap:8px;
+  font-family:var(--font-heading); color:var(--nav-text);
+}
+.brand-mark{font-weight:700; font-size:17px; letter-spacing:var(--tracking-heading);}
+.brand-sub{font-size:11px; color:var(--color-muted); font-family:var(--font-body); letter-spacing:.02em;}
+.tabs{display:flex; align-items:center; height:100%; gap:2px;}
+.tab{
+  position:relative;
+  height:100%;
+  display:flex; align-items:center;
+  padding:0 16px;
+  font-size:12.5px; font-weight:600;
+  color:var(--nav-text-inactive);
+  cursor:pointer; user-select:none;
+  border-bottom:3px solid transparent;
+  transition:color var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard);
+  white-space:nowrap;
+}
+.tab .tab-num{color:var(--color-muted); font-weight:500; margin-right:6px; font-size:11px;}
+.tab:hover{color:var(--nav-text);}
+.tab.active{color:var(--nav-text); border-bottom-color:var(--color-accent);}
+.tab.active .tab-num{color:var(--color-accent);}
+
+/* ── Page wrapper / layout ───────────────────────────────────── */
+.page-wrapper{max-width:1400px; margin:0 auto; padding:0 var(--space-xl);}
+.page{display:none;}
+.page.active{display:block;}
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(12px);}
+  to{opacity:1; transform:translateY(0);}
+}
+.page.active.animate-in{animation:fadeUp var(--dur-page) var(--ease-decel) both;}
+
+.page-header{padding:var(--space-xl) 0 var(--space-lg);}
+.page-title{
+  font-family:var(--font-heading); font-weight:700;
+  font-size:var(--text-page-title); color:var(--color-primary);
+  letter-spacing:var(--tracking-display);
+}
+.page-subtitle{margin-top:6px; font-size:13px; color:var(--color-muted);}
+
+.section{margin-bottom:var(--space-xl);}
+.section-header{
+  display:flex; align-items:baseline; justify-content:space-between;
+  margin-bottom:var(--space-md);
+}
+.section-title{
+  font-family:var(--font-heading); font-weight:600;
+  font-size:var(--text-section); color:var(--color-primary);
+  letter-spacing:var(--tracking-heading);
+}
+.section-note{font-size:11px; color:var(--color-muted);}
+
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:var(--space-md);}
+.grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:var(--space-md);}
+.grid-4{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:var(--space-md);}
+@media (max-width:880px){ .grid-2,.grid-3{grid-template-columns:1fr;} }
+
+/* ── Card ────────────────────────────────────────────────────── */
+.card{
+  background:var(--color-surface);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-md);
+  padding:var(--space-lg);
+  transition:transform var(--dur-normal) var(--ease-spring), box-shadow var(--dur-normal) var(--ease-standard);
+}
+.card:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg);}
+.card-flat{ box-shadow:var(--shadow-sm); }
+.card-flat:hover{ transform:none; box-shadow:var(--shadow-sm); }
+
+/* ── KPI ─────────────────────────────────────────────────────── */
+.kpi-label{
+  font-size:var(--text-label); font-weight:600; color:var(--color-muted);
+  text-transform:uppercase; letter-spacing:var(--tracking-label);
+}
+.kpi-value{
+  margin-top:8px;
+  font-family:var(--font-heading); font-weight:700;
+  font-size:var(--text-kpi-value); color:var(--color-primary);
+  letter-spacing:var(--tracking-display);
+}
+.kpi-foot{margin-top:6px; font-size:12px; color:var(--color-muted);}
+
+/* ── Section labels (table-head style, used standalone too) ───── */
+.eyebrow{
+  font-size:var(--text-table-head); font-weight:600; color:var(--color-primary);
+  text-transform:uppercase; letter-spacing:var(--tracking-label);
+}
+
+/* ── Table ───────────────────────────────────────────────────── */
+.table-card{
+  background:var(--color-surface);
+  border-radius:var(--radius-md);
+  box-shadow:var(--shadow-md);
+  overflow:hidden;
+}
+table{width:100%; border-collapse:collapse;}
+thead th{
+  background:var(--table-header-bg);
+  color:var(--color-primary);
+  font-size:var(--text-table-head); font-weight:600;
+  text-transform:uppercase; letter-spacing:var(--tracking-label);
+  text-align:left; padding:0 var(--space-md);
+  height:var(--row-height-header);
+  border-bottom:2px solid var(--table-header-sep);
+}
+thead th.num{text-align:right;}
+tbody td{
+  padding:0 var(--space-md);
+  height:var(--row-height-body);
+  font-size:var(--text-body);
+  color:var(--color-body-text);
+  border-bottom:1px solid var(--color-border);
+}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--color-bg);}
+tbody tr:nth-child(odd){background:var(--color-surface);}
+td.num{text-align:right; font-variant-numeric:tabular-nums;}
+td.label{text-align:left; color:var(--color-primary); font-weight:500;}
+td.muted{color:var(--color-muted);}
+
+/* ── Status badge / pill ────────────────────────────────────── */
+.badge{
+  display:inline-flex; align-items:center; justify-content:center;
+  height:24px; padding:0 14px;
+  border-radius:var(--radius-pill);
+  font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.04em;
+  white-space:nowrap;
+}
+.badge-pass{background:var(--color-bg); color:var(--color-muted);}
+.badge-good{background:var(--color-positive); color:#fff;}
+.badge-review{background:var(--color-accent); color:#fff;}
+.badge-fail{background:var(--color-negative); color:#fff;}
+.badge-na{background:var(--color-bg); color:var(--color-muted);}
+.badge-lg{height:52px; padding:0 32px; font-size:20px; letter-spacing:.06em; font-family:var(--font-heading); font-weight:700;}
+
+/* ── Inputs ─────────────────────────────────────────────────── */
+.field{display:flex; flex-direction:column; gap:6px; margin-bottom:var(--space-md);}
+.field-label{
+  font-size:var(--text-label); font-weight:600; color:var(--color-muted);
+  text-transform:uppercase; letter-spacing:var(--tracking-label);
+}
+.field-input, .field-select{
+  height:38px; padding:0 12px;
+  background:var(--color-input-bg);
+  border:1px solid rgba(5,28,44,.08);
+  border-radius:var(--radius-sm);
+  font-family:var(--font-body); font-size:13px; color:var(--color-body-text);
+  outline:none;
+  transition:box-shadow var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard);
+}
+.field-input:focus, .field-select:focus{
+  border-color:var(--color-accent);
+  box-shadow:0 0 0 3px var(--accent-10);
+}
+.field-input.readonly{
+  background:var(--color-bg); color:var(--color-muted);
+  border-color:transparent;
+}
+.field-input[disabled]{
+  background:var(--color-bg); color:var(--color-muted);
+  border-color:transparent; cursor:not-allowed;
+}
+.field-hint{font-size:11px; color:var(--color-muted);}
+.input-suffix-wrap{position:relative;}
+.input-suffix-wrap .field-input{padding-right:30px; width:100%;}
+.input-suffix{
+  position:absolute; right:12px; top:0; height:38px;
+  display:flex; align-items:center;
+  font-size:12px; color:var(--color-muted); pointer-events:none;
+}
+
+/* ── Data bar ───────────────────────────────────────────────── */
+.bar-wrap{display:flex; align-items:center; gap:10px; justify-content:flex-end;}
+.bar-track{
+  width:90px; height:6px; border-radius:4px;
+  background:var(--accent-10); overflow:hidden;
+}
+.bar-fill{
+  height:100%; border-radius:4px;
+  background:var(--color-accent);
+  transition:width var(--dur-normal) var(--ease-standard);
+}
+.bar-fill.over{background:var(--color-negative);}
+.bar-num{min-width:54px; text-align:right; font-variant-numeric:tabular-nums; font-weight:600; color:var(--color-primary);}
+
+/* ── Insight block ──────────────────────────────────────────── */
+.insight-block{
+  border-left:3px solid var(--color-accent);
+  background:var(--insight-bg);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:14px 18px;
+  font-size:13px; color:var(--color-body-text);
+}
+.insight-block b{color:var(--color-primary);}
+.insight-block.anomaly{border-left-color:var(--color-negative); background:var(--anomaly-bg);}
+
+/* ── Buy-rate grid matrix ───────────────────────────────────── */
+.matrix-wrap{overflow-x:auto;}
+.matrix{border-collapse:separate; border-spacing:4px; width:100%;}
+.matrix th{
+  background:var(--color-primary); color:#fff;
+  font-size:11px; font-weight:600; text-align:center;
+  padding:8px 4px; border-radius:var(--radius-sm);
+  letter-spacing:.02em;
+}
+.matrix th.corner{background:var(--color-primary); font-family:var(--font-heading);}
+.matrix td.fico-head{
+  background:#0E2E45; color:#fff; font-weight:700; text-align:center;
+  border-radius:var(--radius-sm); font-size:12px;
+}
+.grid-cell{
+  position:relative; padding:0; text-align:center;
+  border-radius:var(--radius-sm);
+  background:var(--color-bg);
+}
+.grid-cell input{
+  width:100%; height:36px; text-align:center;
+  border:none; background:transparent; border-radius:var(--radius-sm);
+  font-family:var(--font-body); font-size:12px; font-weight:600; color:var(--color-primary);
+  outline:none; cursor:pointer;
+  transition:transform var(--dur-fast) var(--ease-standard), filter var(--dur-fast) var(--ease-standard), background var(--dur-fast) var(--ease-standard);
+}
+.grid-cell input::placeholder{color:var(--color-muted); font-weight:400;}
+.grid-cell input:hover{transform:scale(1.04); filter:brightness(1.08); background:var(--accent-04);}
+.grid-cell input:focus{background:var(--color-input-bg); box-shadow:0 0 0 2px var(--accent-10) inset;}
+.grid-cell.active-cell{box-shadow:0 0 0 2px var(--color-accent) inset;}
+.grid-cell.active-cell input{background:var(--accent-10); color:var(--color-accent);}
+
+/* ── Pricing assumption tables ─────────────────────────────── */
+.assump-input{
+  width:84px; height:30px; text-align:right; padding:0 8px;
+  background:var(--color-input-bg); border:1px solid rgba(5,28,44,.08);
+  border-radius:var(--radius-sm); font-size:12px; font-weight:600; color:var(--color-primary);
+  outline:none;
+}
+.assump-input:focus{border-color:var(--color-accent); box-shadow:0 0 0 3px var(--accent-10);}
+.assump-input[disabled]{background:var(--color-bg); color:var(--color-muted); border-color:transparent;}
+
+/* ── Restricted tag ────────────────────────────────────────── */
+.tag-restricted{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--color-negative); background:var(--anomaly-bg);
+  padding:4px 10px; border-radius:var(--radius-pill);
+}
+.tag-internal{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--color-muted); background:var(--color-bg);
+  padding:4px 10px; border-radius:var(--radius-pill);
+}
+
+/* ── Step / guide cards ───────────────────────────────────── */
+.step-card{display:flex; gap:16px; align-items:flex-start;}
+.step-num{
+  font-family:var(--font-heading); font-weight:700; font-size:22px; color:var(--color-accent);
+  letter-spacing:var(--tracking-display); min-width:34px;
+}
+.step-body b{color:var(--color-primary); display:block; margin-bottom:2px; font-size:13px;}
+.step-body span{color:var(--color-muted); font-size:12.5px;}
+
+.arch-card{display:flex; flex-direction:column; gap:6px;}
+.arch-card .arch-name{font-family:var(--font-heading); font-weight:700; color:var(--color-primary); font-size:14px;}
+.arch-card .arch-desc{font-size:12px; color:var(--color-muted); line-height:1.5;}
+
+footer.disclaimer{
+  margin:var(--space-xl) 0 var(--space-2xl);
+  font-size:11px; color:var(--color-muted); line-height:1.6;
+  border-top:1px solid var(--color-border); padding-top:var(--space-md);
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════ NAV ════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="brand-mark">RTL Loan Sizer / Pricer</span>
+      <span class="brand-sub">Live Calculation Engine</span>
+    </div>
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-page="guide"><span class="tab-num">01</span>Guide</div>
+      <div class="tab" data-page="inputs"><span class="tab-num">02</span>Inputs</div>
+      <div class="tab" data-page="pricing"><span class="tab-num">03</span>Pricing &amp; Assumptions</div>
+      <div class="tab" data-page="calc"><span class="tab-num">04</span>Calc Engine</div>
+      <div class="tab" data-page="quote"><span class="tab-num">05</span>Quote Summary</div>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════ 01 GUIDE ════════════ -->
+<div class="page active animate-in" id="page-guide">
+  <div class="page-wrapper">
+    <div class="page-header">
+      <div class="page-title">Operational Guide</div>
+      <div class="page-subtitle">How this tool is structured, and how a deal moves through it.</div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">How to Use</div></div>
+      <div class="grid-4">
+        <div class="card step-card">
+          <div class="step-num">1</div>
+          <div class="step-body"><b>Input</b><span>Open Inputs. Fill in loan, property, borrower and risk fields — every change recalculates instantly.</span></div>
+        </div>
+        <div class="card step-card">
+          <div class="step-num">2</div>
+          <div class="step-body"><b>Verify</b><span>Check Calc Engine for any Fail or Exception Needed flag before quoting.</span></div>
+        </div>
+        <div class="card step-card">
+          <div class="step-num">3</div>
+          <div class="step-body"><b>Quote</b><span>Open Quote Summary for the client-safe, single-page term sheet view.</span></div>
+        </div>
+        <div class="card step-card">
+          <div class="step-num">4</div>
+          <div class="step-body"><b>Adjust</b><span>Tune leverage caps and the buy-rate grid in Pricing &amp; Assumptions — every dependent figure updates live.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Workbook Architecture</div></div>
+      <div class="grid-4">
+        <div class="card-flat card arch-card">
+          <span class="arch-name">01 · Guide</span>
+          <span class="arch-desc">Operational documentation. No calculations live here.</span>
+        </div>
+        <div class="card-flat card arch-card">
+          <span class="arch-name">02 · Inputs</span>
+          <span class="arch-desc">Single point of data entry — loan, property, borrower, and transaction terms.</span>
+        </div>
+        <div class="card-flat card arch-card">
+          <span class="arch-name">03 · Pricing &amp; Assumptions</span>
+          <span class="arch-desc">Leverage caps, spread floor, fee defaults, and the FICO × LTV buy-rate matrix.</span>
+        </div>
+        <div class="card-flat card arch-card">
+          <span class="arch-name">04 · Calc Engine</span>
+          <span class="arch-desc">All leverage math, eligibility gating, pricing lookup, and settlement calculations.</span>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <div class="insight-block">
+          <b>05 · Quote Summary</b> is the only client-facing view — it never surfaces Buy Rate, Lender Spread, or Lender Profit. Every figure on that page is a live formula reference back to Calc Engine, never a typed-in value.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Underwriting Logic</div></div>
+      <div class="card">
+        <table>
+          <thead><tr><th>Status</th><th>Trigger</th><th class="num">Action</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-good">Pass</span></td><td class="muted">Metric within the leverage cap</td><td class="num muted">No action needed</td></tr>
+            <tr><td><span class="badge badge-review">Exception Needed</span></td><td class="muted">Metric within 5 points of the cap</td><td class="num muted">Underwriter review required</td></tr>
+            <tr><td><span class="badge badge-fail">Fail</span></td><td class="muted">Metric exceeds the leverage cap</td><td class="num muted">Not eligible as structured</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <footer class="disclaimer">
+      Internal pricing tool. All calculation logic runs client-side in this browser — no data is transmitted to a server. Buy Rate Grid and Leverage Assumptions in tab 03 are editable for scenario testing and immediately affect every dependent figure.
+    </footer>
+  </div>
+</div>
+
+<!-- ════════════ 02 INPUTS ════════════ -->
+<div class="page" id="page-inputs">
+  <div class="page-wrapper">
+    <div class="page-header">
+      <div class="page-title">Data Inputs</div>
+      <div class="page-subtitle">Every field recalculates Calc Engine and Quote Summary in real time.</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="section">
+        <div class="section-header"><div class="section-title">Loan Overview</div></div>
+        <div class="card">
+          <div class="field">
+            <label class="field-label">Loan Type</label>
+            <select class="field-select calc-input" id="inp-loanType">
+              <option>Bridge</option>
+              <option selected>Fix-and-Flip</option>
+              <option>Light Rehab</option>
+              <option>Heavy Rehab</option>
+              <option>Construction</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><div class="section-title">Requested Loan Terms</div></div>
+        <div class="card">
+          <div class="field">
+            <label class="field-label">Requested Loan Amount ($)</label>
+            <input class="field-input calc-input" id="inp-reqLoanAmt" type="number" step="1000" value="340000">
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label class="field-label">Proposed Note Rate (Borrower Rate)</label>
+            <div class="input-suffix-wrap">
+              <input class="field-input calc-input" id="inp-noteRate" type="number" step="0.05" value="11.50">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="section">
+        <div class="section-header"><div class="section-title">Property Details</div></div>
+        <div class="card">
+          <div class="field">
+            <label class="field-label">Purchase Price ($)</label>
+            <input class="field-input calc-input" id="inp-purchasePrice" type="number" step="1000" value="350000">
+          </div>
+          <div class="field">
+            <label class="field-label">As-Is Value ($)</label>
+            <input class="field-input calc-input" id="inp-asIsValue" type="number" step="1000" value="380000">
+          </div>
+          <div class="field">
+            <label class="field-label">Rehab Budget ($)</label>
+            <input class="field-input calc-input" id="inp-rehabBudget" type="number" step="1000" value="65000">
+            <span class="field-hint" id="hint-rehab">Set to 0 automatically for Bridge loans</span>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label class="field-label">After-Repair Value / ARV ($)</label>
+            <input class="field-input calc-input" id="inp-arv" type="number" step="1000" value="520000">
+            <span class="field-hint" id="hint-arv">Set to 0 automatically for Bridge loans</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><div class="section-title">Borrower Risk Profile</div></div>
+        <div class="card">
+          <div class="field">
+            <label class="field-label">FICO Score</label>
+            <input class="field-input calc-input" id="inp-fico" type="number" min="300" max="850" step="1" value="690">
+          </div>
+          <div class="field">
+            <label class="field-label">Experience Tier</label>
+            <select class="field-select calc-input" id="inp-expTier">
+              <option>0-2 Projects</option>
+              <option selected>3-5 Projects</option>
+              <option>6+ Projects</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label class="field-label">Verified Liquid Assets ($)</label>
+            <input class="field-input calc-input" id="inp-liquidAssets" type="number" step="1000" value="45000">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Transaction Parameters</div></div>
+      <div class="card grid-2" style="gap:var(--space-lg);">
+        <div class="field" style="margin-bottom:0;">
+          <label class="field-label">Loan Term</label>
+          <select class="field-select calc-input" id="inp-termMonths">
+            <option value="12" selected>12 Months</option>
+            <option value="18">18 Months</option>
+            <option value="24">24 Months</option>
+          </select>
+        </div>
+        <div class="field" style="margin-bottom:0;">
+          <label class="field-label">Short Interest Days (0–30)</label>
+          <input class="field-input calc-input" id="inp-shortIntDays" type="number" min="0" max="30" step="1" value="15">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ 03 PRICING & ASSUMPTIONS ════════════ -->
+<div class="page" id="page-pricing">
+  <div class="page-wrapper">
+    <div class="page-header">
+      <div class="page-title">Pricing &amp; Assumptions</div>
+      <div class="page-subtitle">
+        <span class="tag-restricted">Restricted — Admin Access</span>
+        &nbsp; Edits here immediately re-run every calculation downstream.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Maximum Leverage Limits by Loan Type</div>
+      </div>
+      <div class="table-card">
+        <table>
+          <thead><tr><th>Loan Type</th><th class="num">Max LTV</th><th class="num">Max LTC</th><th class="num">Max LTARV</th></tr></thead>
+          <tbody id="leverage-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="section">
+        <div class="section-header"><div class="section-title">Profit Safeguards</div></div>
+        <div class="card">
+          <div class="field">
+            <label class="field-label">Minimum Spread Floor</label>
+            <div class="input-suffix-wrap">
+              <input class="field-input calc-input" id="asm-minSpread" type="number" step="0.05" value="2.50">
+              <span class="input-suffix">%</span>
+            </div>
+            <span class="field-hint">Minimum lender margin over Buy Rate before flagging Below Margin</span>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label class="field-label">Annual Servicing Fee</label>
+            <div class="input-suffix-wrap">
+              <input class="field-input calc-input" id="asm-servFee" type="number" step="0.01" value="0.25">
+              <span class="input-suffix">%</span>
+            </div>
+            <span class="field-hint">Deducted at settlement: Loan Amt × (Fee ÷ 12) × Term Months</span>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><div class="section-title">Lookup Logic</div></div>
+        <div class="card insight-block" style="box-shadow:none;">
+          Buy Rate is resolved by matching the <b>largest FICO tier ≤ borrower FICO</b> against the <b>largest LTV tier ≤ Actual LTV</b>. Cells marked <b>—</b> are combinations not currently offered; type a rate into any cell to activate it.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Base Buy Rate Pricing Grid — FICO × LTV Tier Matrix</div>
+        <div class="section-note">Highlighted cell = combination used by the current loan in Inputs</div>
+      </div>
+      <div class="card matrix-wrap">
+        <table class="matrix" id="buyrate-grid"></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ 04 CALC ENGINE ════════════ -->
+<div class="page" id="page-calc">
+  <div class="page-wrapper">
+    <div class="page-header">
+      <div class="page-title">Calculation Engine</div>
+      <div class="page-subtitle"><span class="tag-restricted">Restricted — Internal Only</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Leverage Metrics &amp; Underwriting Gates</div></div>
+      <div class="table-card">
+        <table>
+          <thead><tr><th>Metric</th><th class="num">Actual</th><th class="num">Max Allowed</th><th class="num">Utilization</th><th class="num">Flag</th></tr></thead>
+          <tbody id="calc-leverage-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="section">
+        <div class="section-header"><div class="section-title">Global Eligibility</div></div>
+        <div class="card" style="display:flex; align-items:center; justify-content:center; min-height:120px;">
+          <span class="badge badge-lg" id="calc-globalElig">—</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><div class="section-title">Pricing Engine</div></div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <span class="kpi-label">Buy Rate (Resolved)</span>
+            <span style="font-weight:700; color:var(--color-primary);" id="calc-buyRate">—</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <span class="kpi-label">Calculated Spread</span>
+            <span style="font-weight:700; color:var(--color-primary);" id="calc-spread">—</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <span class="kpi-label">Spread Status</span>
+            <span id="calc-spreadStatus">—</span>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span class="kpi-label">Spread Deficit</span>
+            <span style="font-weight:700; color:var(--color-negative);" id="calc-spreadDeficit">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Settlement Calculations</div></div>
+      <div class="grid-4">
+        <div class="card">
+          <div class="kpi-label">Servicing Fee Reserve</div>
+          <div class="kpi-value" id="calc-servFee" style="font-size:24px;">—</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Prepaid Short Interest</div>
+          <div class="kpi-value" id="calc-shortInt" style="font-size:24px;">—</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Net Funding to Borrower</div>
+          <div class="kpi-value" id="calc-netFunding" style="font-size:24px;">—</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Cash-to-Close Required</div>
+          <div class="kpi-value" id="calc-cashToClose" style="font-size:24px;">—</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <div class="insight-block" id="calc-liqInsight">Liquidity Shortfall: —</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Profit Evaluation</div>
+        <span class="tag-internal">Internal only — never surfaced on Quote Summary</span>
+      </div>
+      <div class="card" style="max-width:320px;">
+        <div class="kpi-label">Estimated Lender Profit</div>
+        <div class="kpi-value" id="calc-lenderProfit">—</div>
+        <div class="kpi-foot">Loan Amount × Spread × (Term ÷ 12)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ 05 QUOTE SUMMARY ════════════ -->
+<div class="page" id="page-quote">
+  <div class="page-wrapper">
+    <div class="page-header">
+      <div class="page-title">Indicative Term Sheet</div>
+      <div class="page-subtitle" id="quote-subtitle">— LOAN — INDICATIVE PRICING</div>
+    </div>
+
+    <div class="section" style="display:flex; justify-content:center;">
+      <span class="badge badge-lg" id="quote-badge" style="min-width:280px;">—</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="section">
+        <div class="section-header"><div class="section-title">Loan Terms</div></div>
+        <div class="table-card">
+          <table>
+            <tbody>
+              <tr><td class="label">Loan Amount</td><td class="num" id="q-loanAmt" style="font-weight:700;">—</td></tr>
+              <tr><td class="label">Borrower Interest Rate</td><td class="num" id="q-rate" style="font-weight:700;">—</td></tr>
+              <tr><td class="label">Loan Term</td><td class="num" id="q-term">—</td></tr>
+              <tr><td class="label">Loan Type</td><td class="num" id="q-loanType">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><div class="section-title">Borrower Profile</div></div>
+        <div class="table-card">
+          <table>
+            <tbody>
+              <tr><td class="label">FICO Score</td><td class="num" id="q-fico">—</td></tr>
+              <tr><td class="label">Experience Tier</td><td class="num" id="q-expTier">—</td></tr>
+              <tr><td class="label">Verified Liquid Assets</td><td class="num" id="q-liquidAssets">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Leverage Metrics</div></div>
+      <div class="table-card">
+        <table>
+          <thead><tr><th>Metric</th><th class="num">Actual</th><th class="num">Maximum Allowed</th><th class="num">Status</th></tr></thead>
+          <tbody id="quote-leverage-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-title">Settlement Summary</div></div>
+      <div class="table-card">
+        <table>
+          <tbody>
+            <tr><td class="label">Prepaid Short Interest</td><td class="num" id="q-shortInt">—</td></tr>
+            <tr><td class="label">Servicing Fee Reserve</td><td class="num" id="q-servFee">—</td></tr>
+            <tr><td class="label" style="font-weight:700;">Net Funding to Borrower</td><td class="num" id="q-netFunding" style="font-weight:700;">—</td></tr>
+            <tr><td class="label" style="font-weight:700;">Cash-to-Close Required</td><td class="num" id="q-cashToClose" style="font-weight:700;">—</td></tr>
+            <tr><td class="label">Liquidity Shortfall</td><td class="num" id="q-liqShortfall">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <footer class="disclaimer">
+      DISCLAIMER: This document is indicative only and does not constitute a commitment to lend. All terms are subject to final underwriting review, independent appraisal, title examination, and lender credit approval. Confidential.
+    </footer>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════
+   STATE
+   ════════════════════════════════════════════════════════════════ */
+const inputs = {
+  loanType:'Fix-and-Flip',
+  purchasePrice:350000, asIsValue:380000, rehabBudget:65000, arv:520000,
+  reqLoanAmt:340000, noteRate:0.115,
+  fico:690, expTier:'3-5 Projects', liquidAssets:45000,
+  termMonths:12, shortIntDays:15
+};
+
+const assumptions = {
+  leverageRules:[
+    {type:'Bridge',       maxLTV:0.75, maxLTC:null, maxLTARV:null},
+    {type:'Fix-and-Flip', maxLTV:0.90, maxLTC:0.85, maxLTARV:0.70},
+    {type:'Light Rehab',  maxLTV:0.80, maxLTC:0.90, maxLTARV:0.75},
+    {type:'Heavy Rehab',  maxLTV:0.75, maxLTC:0.85, maxLTARV:0.70},
+    {type:'Construction', maxLTV:0.70, maxLTC:0.85, maxLTARV:0.65},
+  ],
+  minSpread:0.025,
+  servFeePct:0.0025,
+  ficoTiers:[620,640,660,680,700,720,740],
+  ltvTiers:[0.50,0.55,0.60,0.65,0.70,0.75,0.80],
+  buyRateGrid:[
+    [0.1050,0.1075,0.1100,0.1150,null,  null,  null  ],
+    [0.0975,0.1000,0.1025,0.1075,0.1125,null,  null  ],
+    [0.0925,0.0950,0.0975,0.1025,0.1075,0.1125,null  ],
+    [0.0875,0.0900,0.0925,0.0975,0.1025,0.1075,0.1125],
+    [0.0825,0.0850,0.0875,0.0925,0.0975,0.1025,0.1075],
+    [0.0800,0.0825,0.0850,0.0900,0.0950,0.1000,0.1050],
+    [0.0775,0.0800,0.0825,0.0875,0.0925,0.0975,0.1025],
+  ]
+};
+
+/* ════════════════════════════════════════════════════════════════
+   FORMATTERS
+   ════════════════════════════════════════════════════════════════ */
+function fc(n){ return (n===null||n===undefined||!isFinite(n)) ? '—' : '$'+Math.round(n).toLocaleString('en-US'); }
+function fp(n,d=2){ return (n===null||n===undefined||!isFinite(n)) ? '—' : (n*100).toFixed(d)+'%'; }
+function badgeClass(status){
+  if(status==='Pass') return 'badge-good';
+  if(status==='Exception' || status==='Exception Needed') return 'badge-review';
+  if(status==='Fail') return 'badge-fail';
+  return 'badge-na';
+}
+
+/* ════════════════════════════════════════════════════════════════
+   CALCULATION ENGINE  (mirrors 04_Calc_Engine formulas)
+   ════════════════════════════════════════════════════════════════ */
+function leverageFlag(actual, max){
+  if(max===null || actual===0) return 'N/A';
+  if(actual > max) return 'Fail';
+  if(actual >= max - 0.05) return 'Exception';
+  return 'Pass';
+}
+
+function computeLeverage(){
+  const rule = assumptions.leverageRules.find(r=>r.type===inputs.loanType);
+  const maxLTV = rule.maxLTV, maxLTC = rule.maxLTC, maxLTARV = rule.maxLTARV;
+
+  const actualLTV   = inputs.asIsValue ? inputs.reqLoanAmt/inputs.asIsValue : 0;
+  const totalCost    = inputs.purchasePrice + inputs.rehabBudget;
+  const actualLTC   = totalCost ? inputs.reqLoanAmt/totalCost : 0;
+  const actualLTP   = inputs.purchasePrice ? inputs.reqLoanAmt/inputs.purchasePrice : 0;
+  const actualLTARV = inputs.arv ? inputs.reqLoanAmt/inputs.arv : 0;
+
+  const ltvFlag   = leverageFlag(actualLTV, maxLTV);
+  const ltcFlag   = leverageFlag(actualLTC, maxLTC);
+  const ltarvFlag = leverageFlag(actualLTARV, maxLTARV);
+
+  let globalElig;
+  if([ltvFlag,ltcFlag,ltarvFlag].includes('Fail')) globalElig='Fail';
+  else if([ltvFlag,ltcFlag,ltarvFlag].includes('Exception')) globalElig='Exception Needed';
+  else globalElig='Pass';
+
+  return {maxLTV,maxLTC,maxLTARV,actualLTV,actualLTC,actualLTP,actualLTARV,ltvFlag,ltcFlag,ltarvFlag,globalElig};
+}
+
+function findTierIndex(tiers, value){
+  let idx=-1;
+  for(let i=0;i<tiers.length;i++){ if(tiers[i] <= value) idx=i; }
+  return idx;
+}
+
+function computePricing(actualLTV){
+  const ficoIdx = findTierIndex(assumptions.ficoTiers, inputs.fico);
+  const ltvIdx  = findTierIndex(assumptions.ltvTiers, actualLTV);
+  let buyRate = null;
+  if(ficoIdx>=0 && ltvIdx>=0) buyRate = assumptions.buyRateGrid[ficoIdx][ltvIdx];
+
+  const spread = (buyRate!==null) ? inputs.noteRate - buyRate : null;
+  let spreadStatus = 'N/A';
+  if(buyRate!==null) spreadStatus = (spread < assumptions.minSpread) ? 'Below Margin' : 'Valid';
+  const spreadDeficit = (spreadStatus==='Below Margin') ? assumptions.minSpread - spread : 0;
+
+  return {buyRate, spread, spreadStatus, spreadDeficit, ficoIdx, ltvIdx};
+}
+
+function computeSettlement(){
+  const servFeeAmt = inputs.reqLoanAmt * (assumptions.servFeePct/12) * inputs.termMonths;
+  const shortInterest = inputs.reqLoanAmt * (inputs.noteRate/360) * inputs.shortIntDays;
+  const netFunding = inputs.reqLoanAmt - shortInterest - servFeeAmt;
+  const totalCost = inputs.purchasePrice + inputs.rehabBudget;
+  const cashToClose = Math.max(0, totalCost - netFunding);
+  const liqShortfall = Math.max(0, cashToClose - inputs.liquidAssets);
+  return {servFeeAmt, shortInterest, netFunding, cashToClose, liqShortfall};
+}
+
+function computeProfit(spread){
+  if(spread===null) return 0;
+  return inputs.reqLoanAmt * spread * (inputs.termMonths/12);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   READ INPUTS FROM DOM
+   ════════════════════════════════════════════════════════════════ */
+function readInputs(){
+  inputs.loanType      = document.getElementById('inp-loanType').value;
+  inputs.purchasePrice = parseFloat(document.getElementById('inp-purchasePrice').value) || 0;
+  inputs.asIsValue     = parseFloat(document.getElementById('inp-asIsValue').value) || 0;
+  inputs.rehabBudget   = parseFloat(document.getElementById('inp-rehabBudget').value) || 0;
+  inputs.arv           = parseFloat(document.getElementById('inp-arv').value) || 0;
+  inputs.reqLoanAmt    = parseFloat(document.getElementById('inp-reqLoanAmt').value) || 0;
+  inputs.noteRate       = (parseFloat(document.getElementById('inp-noteRate').value) || 0) / 100;
+  inputs.fico           = parseFloat(document.getElementById('inp-fico').value) || 0;
+  inputs.expTier         = document.getElementById('inp-expTier').value;
+  inputs.liquidAssets    = parseFloat(document.getElementById('inp-liquidAssets').value) || 0;
+  inputs.termMonths       = parseFloat(document.getElementById('inp-termMonths').value) || 0;
+  inputs.shortIntDays     = parseFloat(document.getElementById('inp-shortIntDays').value) || 0;
+
+  assumptions.minSpread = (parseFloat(document.getElementById('asm-minSpread').value) || 0) / 100;
+  assumptions.servFeePct = (parseFloat(document.getElementById('asm-servFee').value) || 0) / 100;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   BRIDGE CONDITIONAL GRAYING
+   ════════════════════════════════════════════════════════════════ */
+function applyBridgeGraying(){
+  const isBridge = inputs.loanType === 'Bridge';
+  const rehabInput = document.getElementById('inp-rehabBudget');
+  const arvInput = document.getElementById('inp-arv');
+  [rehabInput, arvInput].forEach(el=>{
+    el.disabled = isBridge;
+    el.classList.toggle('readonly', isBridge);
+    if(isBridge) el.value = 0;
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RENDER: PRICING & ASSUMPTIONS TAB
+   ════════════════════════════════════════════════════════════════ */
+function buildLeverageTable(){
+  const body = document.getElementById('leverage-table-body');
+  body.innerHTML = '';
+  assumptions.leverageRules.forEach((rule, i)=>{
+    const tr = document.createElement('tr');
+    const naCell = (field) => {
+      if(rule[field]===null){
+        return `<input class="assump-input" value="N/A" disabled>`;
+      }
+      return `<input class="assump-input calc-input" data-rule="${i}" data-field="${field}" type="number" step="0.5" value="${(rule[field]*100).toFixed(2)}">`;
+    };
+    tr.innerHTML = `
+      <td class="label">${rule.type}</td>
+      <td class="num">${naCell('maxLTV')}</td>
+      <td class="num">${naCell('maxLTC')}</td>
+      <td class="num">${naCell('maxLTARV')}</td>
+    `;
+    body.appendChild(tr);
+  });
+  body.querySelectorAll('input[data-rule]').forEach(inp=>{
+    inp.addEventListener('input', ()=>{
+      const r = parseInt(inp.dataset.rule), f = inp.dataset.field;
+      assumptions.leverageRules[r][f] = (parseFloat(inp.value)||0)/100;
+      recalc();
+    });
+  });
+}
+
+function buildBuyRateGrid(){
+  const table = document.getElementById('buyrate-grid');
+  let html = '<thead><tr><th class="corner">FICO ↓ / LTV →</th>';
+  assumptions.ltvTiers.forEach(ltv=> html += `<th>${(ltv*100).toFixed(0)}%</th>`);
+  html += '</tr></thead><tbody>';
+  assumptions.ficoTiers.forEach((fico,i)=>{
+    html += `<tr><td class="fico-head">${fico}</td>`;
+    assumptions.ltvTiers.forEach((ltv,j)=>{
+      const val = assumptions.buyRateGrid[i][j];
+      const display = (val===null) ? '' : (val*100).toFixed(2);
+      html += `<td class="grid-cell" id="cell-${i}-${j}"><input class="calc-input" data-fi="${i}" data-lj="${j}" type="text" inputmode="decimal" placeholder="—" value="${display}"></td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody>';
+  table.innerHTML = html;
+
+  table.querySelectorAll('input[data-fi]').forEach(inp=>{
+    inp.addEventListener('input', ()=>{
+      const i = parseInt(inp.dataset.fi), j = parseInt(inp.dataset.lj);
+      const raw = inp.value.trim();
+      assumptions.buyRateGrid[i][j] = (raw==='') ? null : (parseFloat(raw)/100);
+      recalc();
+    });
+  });
+}
+
+function highlightGridCell(ficoIdx, ltvIdx){
+  document.querySelectorAll('.grid-cell.active-cell').forEach(c=>c.classList.remove('active-cell'));
+  if(ficoIdx>=0 && ltvIdx>=0){
+    const cell = document.getElementById(`cell-${ficoIdx}-${ltvIdx}`);
+    if(cell) cell.classList.add('active-cell');
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RENDER: CALC ENGINE TAB
+   ════════════════════════════════════════════════════════════════ */
+function renderBar(actual, max){
+  if(max===null) return `<span class="muted">N/A</span>`;
+  const pct = max>0 ? Math.min(actual/max,1.4) : 0;
+  const over = actual > max;
+  return `<div class="bar-wrap">
+      <div class="bar-track"><div class="bar-fill ${over?'over':''}" style="width:${Math.min(pct*100,100)}%"></div></div>
+      <span class="bar-num">${fp(pct,0)}</span>
+    </div>`;
+}
+
+function renderCalcEngine(lev, pricing, settle, profit){
+  const rows = [
+    ['Loan-to-Value (LTV)', lev.actualLTV, lev.maxLTV, lev.ltvFlag],
+    ['Loan-to-Cost (LTC)', lev.actualLTC, lev.maxLTC, lev.ltcFlag],
+    ['Loan-to-Purchase (LTP)', lev.actualLTP, null, 'N/A'],
+    ['Loan-to-ARV (LTARV)', lev.actualLTARV, lev.maxLTARV, lev.ltarvFlag],
+  ];
+  const body = document.getElementById('calc-leverage-body');
+  body.innerHTML = rows.map(([label,actual,max,flag])=>`
+    <tr>
+      <td class="label">${label}</td>
+      <td class="num">${fp(actual)}</td>
+      <td class="num muted">${max===null?'N/A':fp(max)}</td>
+      <td class="num">${renderBar(actual,max)}</td>
+      <td class="num"><span class="badge ${badgeClass(flag)}">${flag}</span></td>
+    </tr>
+  `).join('');
+
+  document.getElementById('calc-globalElig').textContent = lev.globalElig.toUpperCase();
+  document.getElementById('calc-globalElig').className = 'badge badge-lg ' + badgeClass(lev.globalElig);
+
+  document.getElementById('calc-buyRate').textContent = pricing.buyRate===null ? 'Check Risk Rules' : fp(pricing.buyRate);
+  document.getElementById('calc-spread').textContent = pricing.spread===null ? '—' : fp(pricing.spread);
+  const ssEl = document.getElementById('calc-spreadStatus');
+  ssEl.innerHTML = `<span class="badge ${pricing.spreadStatus==='Valid'?'badge-good':(pricing.spreadStatus==='Below Margin'?'badge-fail':'badge-na')}">${pricing.spreadStatus}</span>`;
+  document.getElementById('calc-spreadDeficit').textContent = pricing.spreadDeficit>0 ? fp(pricing.spreadDeficit) : '—';
+
+  document.getElementById('calc-servFee').textContent = fc(settle.servFeeAmt);
+  document.getElementById('calc-shortInt').textContent = fc(settle.shortInterest);
+  document.getElementById('calc-netFunding').textContent = fc(settle.netFunding);
+  document.getElementById('calc-cashToClose').textContent = fc(settle.cashToClose);
+
+  const liqEl = document.getElementById('calc-liqInsight');
+  if(settle.liqShortfall > 0){
+    liqEl.className = 'insight-block anomaly';
+    liqEl.innerHTML = `<b>Liquidity Shortfall: ${fc(settle.liqShortfall)}</b> — borrower's verified liquid assets fall short of Cash-to-Close. Action required before closing.`;
+  } else {
+    liqEl.className = 'insight-block';
+    liqEl.innerHTML = `<b>No Liquidity Shortfall</b> — borrower's verified liquid assets cover Cash-to-Close in full.`;
+  }
+
+  document.getElementById('calc-lenderProfit').textContent = fc(profit);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RENDER: QUOTE SUMMARY TAB
+   ════════════════════════════════════════════════════════════════ */
+function renderQuoteSummary(lev, pricing, settle){
+  document.getElementById('quote-subtitle').textContent = inputs.loanType.toUpperCase() + ' LOAN — INDICATIVE PRICING';
+
+  const badge = document.getElementById('quote-badge');
+  badge.textContent = lev.globalElig.toUpperCase();
+  badge.className = 'badge badge-lg ' + badgeClass(lev.globalElig);
+
+  document.getElementById('q-loanAmt').textContent = fc(inputs.reqLoanAmt);
+  document.getElementById('q-rate').textContent = fp(inputs.noteRate);
+  document.getElementById('q-term').textContent = inputs.termMonths + ' Months';
+  document.getElementById('q-loanType').textContent = inputs.loanType;
+
+  document.getElementById('q-fico').textContent = inputs.fico;
+  document.getElementById('q-expTier').textContent = inputs.expTier;
+  document.getElementById('q-liquidAssets').textContent = fc(inputs.liquidAssets);
+
+  const rows = [
+    ['Loan-to-Value (LTV)', lev.actualLTV, lev.maxLTV, lev.ltvFlag],
+    ['Loan-to-Cost (LTC)', lev.actualLTC, lev.maxLTC, lev.ltcFlag],
+    ['Loan-to-Purchase (LTP)', lev.actualLTP, null, 'N/A'],
+    ['Loan-to-ARV (LTARV)', lev.actualLTARV, lev.maxLTARV, lev.ltarvFlag],
+  ];
+  document.getElementById('quote-leverage-body').innerHTML = rows.map(([label,actual,max,flag])=>`
+    <tr>
+      <td class="label">${label}</td>
+      <td class="num">${fp(actual)}</td>
+      <td class="num muted">${max===null?'N/A':fp(max)}</td>
+      <td class="num"><span class="badge ${badgeClass(flag)}">${flag}</span></td>
+    </tr>
+  `).join('');
+
+  document.getElementById('q-shortInt').textContent = fc(settle.shortInterest);
+  document.getElementById('q-servFee').textContent = fc(settle.servFeeAmt);
+  document.getElementById('q-netFunding').textContent = fc(settle.netFunding);
+  document.getElementById('q-cashToClose').textContent = fc(settle.cashToClose);
+  const liqEl = document.getElementById('q-liqShortfall');
+  liqEl.textContent = fc(settle.liqShortfall);
+  liqEl.style.color = settle.liqShortfall>0 ? 'var(--color-negative)' : 'var(--color-body-text)';
+  liqEl.style.fontWeight = settle.liqShortfall>0 ? '700' : '400';
+}
+
+/* ════════════════════════════════════════════════════════════════
+   MAIN RECALC LOOP
+   ════════════════════════════════════════════════════════════════ */
+function recalc(){
+  readInputs();
+  applyBridgeGraying();
+  const lev = computeLeverage();
+  const pricing = computePricing(lev.actualLTV);
+  const settle = computeSettlement();
+  const profit = computeProfit(pricing.spread);
+  renderCalcEngine(lev, pricing, settle, profit);
+  renderQuoteSummary(lev, pricing, settle);
+  highlightGridCell(pricing.ficoIdx, pricing.ltvIdx);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   TAB NAVIGATION
+   ════════════════════════════════════════════════════════════════ */
+function initTabs(){
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      const pageId = 'page-' + tab.dataset.page;
+      document.querySelectorAll('.page').forEach(p=>{
+        p.classList.remove('active','animate-in');
+      });
+      const target = document.getElementById(pageId);
+      target.classList.add('active');
+      requestAnimationFrame(()=> target.classList.add('animate-in'));
+    });
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════════════════ */
+function init(){
+  buildLeverageTable();
+  buildBuyRateGrid();
+  initTabs();
+  document.addEventListener('input', (e)=>{
+    if(e.target.classList.contains('calc-input')) recalc();
+  });
+  recalc();
+}
+init();
+</script>
+</body>
+</html>
