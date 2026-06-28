@@ -1,5 +1,3 @@
-🌐 **Language:** English (this document)
-
 # RTL Loan Sizer & Pricer — Catch the Error Before It Reaches Closing
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
