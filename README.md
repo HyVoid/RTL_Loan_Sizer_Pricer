@@ -21,16 +21,6 @@
 
 # Screenshots
 
-### Browser Version
-
-<!-- screenshot: browser version -->
-
-*A browser-based interface for quickly evaluating Residential Transitional Loan scenarios and generating standardized quote summaries.*
-
----
-
-### Excel Version
-
 <img width="1024" height="572" alt="image" src="https://github.com/user-attachments/assets/91253368-509f-412c-93eb-0e01323b0b3f" />
 
 
