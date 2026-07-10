@@ -1,280 +1,893 @@
-# RTL Loan Sizer & Pricer — Catch the Error Before It Reaches Closing
+# RTL Loan Sizer / Pricer
 
-![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
-![Platform](https://img.shields.io/badge/platform-Excel%20%7C%20Web-2251FF.svg)
-![Type](https://img.shields.io/badge/type-Decision%20Support%20Tool-051C2C.svg)
+### Lightweight Residential Transitional Loan Decision Support Tool for Accurate Loan Structuring, Pricing, Eligibility Validation, and Client-Ready Quote Generation
 
-**Cross-checks every RTL deal against three leverage caps and a margin floor at once — so a clean-looking single metric never closes a deal that fails on the other two.**
+![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
+![Platform](https://img.shields.io/badge/Platform-Browser%20%7C%20Excel-success)
+![Tool](https://img.shields.io/badge/Tool-Decision%20Support-orange)
+![Status](https://img.shields.io/badge/Version-Stable-brightgreen)
 
-**[Live Demo](./RTL_Loan_Sizer_Pricer_App.html)** · **[Download the Workbook](./RTL_Loan_Sizer_Pricer.xlsx)** · **[Methodology](#workbook-logic-for-the-skeptical-reviewer)**
+**Size, validate, and price Residential Transitional Loans consistently in minutes—without installation, without coding, and without exposing proprietary pricing logic. Available as both a browser version and an Excel workbook.**
 
-![RTL Loan Sizer — Quote Summary view](./assets/hero-quote-summary.png)
-*(Placeholder — replace with a screenshot of the Quote Summary tab before publishing.)*
-
----
-
-## What Decision Does This Help You Make?
-
-1. Does this deal clear every leverage cap — LTV, LTC, and LTARV — or does it only look acceptable on the one metric someone happened to check first?
-2. Is the proposed note rate still above the minimum spread floor once the FICO/LTV-tier buy rate is applied, or has margin already compressed below the line?
-3. After short interest and the servicing fee reserve are deducted, does net funding actually cover the cash-to-close requirement — or is there a liquidity shortfall hiding behind the gross loan amount?
-4. Which single constraint is actually binding the deal, and how far is it from triggering an exception?
+> ## No signup. No installation. Free.
+>
+> 🌐 **Open in Browser**  
+> *(HTML version placeholder)*
+>
+> 📥 **Download Excel**  
+> [*Excel download*](https://alexhasgreatestuff.gumroad.com/l/okqdlp)
 
 ---
 
-## About The Builder
+# Screenshots
 
-Three positions shape the workbook. Decision support over system replacement: it answers one underwriting question correctly, not a replacement for origination software. Productized reasoning over feature accumulation: every cell supports a gate the deal genuinely depends on, not a demonstration of spreadsheet skill. Low-friction execution over implementation complexity: no macros, no database, no IT ticket. An originator opens the file, enters the deal, and gets a gated answer before the call ends.
+### Browser Version
 
----
+<!-- screenshot: browser version -->
 
-## Who This Is For
-
-| User | Typical Situation | Decision Supported | Why Existing Methods Fail |
-|---|---|---|---|
-| RTL Loan Originator | Quoting a Fix-and-Flip or Light Rehab deal against a verbal rate sheet | Quote, decline, or flag for exception before submission | Mental math checks one leverage ratio and skips the other two |
-| Underwriting Manager | Reviewing a submitted file against caps and the margin floor | Whether the file clears every cap at once, not just the obvious one | Spreadsheets recalculate LTV but rarely cross-check LTC and LTARV together |
-| Mortgage Broker (Bridge / Rehab Referrals) | Pre-qualifying a borrower before sending the file to a lender | Whether the deal is fundable as structured | Broker tools price the loan but don't model the lender's spread floor |
-| Capital Markets Analyst | Pricing a warehouse line draw or a loan-for-sale package | Whether booked spread on a closed loan still clears the minimum margin | Loan-level spread is recalculated post-close, after the error has shipped |
+*A browser-based interface for quickly evaluating Residential Transitional Loan scenarios and generating standardized quote summaries.*
 
 ---
 
-## Why Most RTL Underwriting Errors Aren't Judgment Errors
+### Excel Version
 
-The error rarely starts with bad judgment. It starts with a process that checks one number and stops. An originator pulls As-Is Value, divides it into the loan amount, gets a clean LTV, and moves on. Total project cost — purchase price plus rehab budget — sits in a different cell, checked separately, sometimes not at all. Three leverage ratios exist because one ratio can pass while another fails on the same deal. A process that checks them in sequence, rather than as a single gate, will eventually let a Fail through disguised as a Pass.
+<img width="1024" height="572" alt="image" src="https://github.com/user-attachments/assets/91253368-509f-412c-93eb-0e01323b0b3f" />
 
-The same gap shows up in pricing. Note rate gets compared to a target spread remembered from the last rate sheet update, not the spread floor on the current one. Buy rate is a lookup against FICO and LTV tiers, not a fixed number — a borrower one tier worse on either axis prices materially higher, and the spread compresses without anyone recalculating it.
 
-Verification closes the gap by replacing sequential checks with a single gate:
-
-```
-BEFORE                            AFTER
-Check LTV   → looks fine          Compute LTV, LTC, LTARV, Spread together
-Check LTC   → skipped             → Fail if ANY metric fails
-Decide: approve                   → Exception if ANY metric is within 5 pts of cap
-                                   → Pass only if ALL metrics clear
-```
-
-Operationally, this means the deal that gets quoted is the deal that was actually checked — not the deal that was checked fastest.
+*The Excel workbook provides the complete underwriting workflow, pricing engine, validation logic, and printable lender-ready term sheet.*
 
 ---
 
-## Three Traps That Catch Even Experienced Underwriters
+# What It Helps You Track
 
-### Trap 1 — The Single-Metric Pass
+- Loan eligibility against underwriting leverage limits before a quote is issued.
+- Actual LTV, LTC, LTP, and LTARV across different residential transitional loan structures.
+- Borrower funding requirements, net funding proceeds, and estimated cash required at closing.
+- Pricing consistency across FICO tiers, leverage levels, and lender pricing assumptions.
+- Margin protection by identifying loans priced below internal spread requirements.
+- Client-ready loan terms generated from a single underwriting workflow instead of manually assembling calculations.
 
-**The decision:** An originator reviews a Light Rehab submission, checks LTV at 69.2% against an 80% cap, and verbally approves the deal pending paperwork.
+---
 
-**The unnoticed flaw:** Total project cost — purchase price plus rehab budget — was never checked against the loan amount. LTC, the second leverage gate, was sitting at 93.75% against a 90% cap.
+# Quick Start Workflow
 
-**How the flaw changes the recommendation:** A deal comfortably inside one cap is breaching another by 3.75 points. The correct call is decline-or-restructure, not approve.
+### 1. Configure underwriting assumptions
 
-**Why the reasoning was wrong:** LTV measures collateral coverage against current value. It says nothing about how much of the total cost basis the loan is funding. A loan can be conservative against value and aggressive against cost basis at the same time — independent constraints, not proxies for each other.
+Administrative users define lending parameters once on the dedicated Pricing & Assumptions worksheet. These include leverage limits, pricing grids, servicing fees, spread requirements, loan programs, and underwriting thresholds. These settings normally require only periodic maintenance rather than daily adjustment.
 
-**Corrected approach:** Compute LTV, LTC, and LTARV from the same inputs and require a Pass across all three before recommending approval.
+---
 
-**Corrected outcome:** Global Eligibility returns Fail. The deal is restructured — loan amount reduced or rehab budget re-scoped — before it reaches a credit committee.
+### 2. Enter a new loan scenario
 
-| Metric | Actual | Cap | Flag |
-|---|---|---|---|
-| LTV | 69.2% | 80% | Pass |
-| LTC | 93.75% | 90% | **Fail** |
-| Global Eligibility | — | — | **Fail** |
+Open the **Inputs** worksheet and complete the requested information.
+
+Typical information includes:
+
+- Purchase price
+- As-Is value
+- Rehabilitation budget
+- After Repair Value (ARV)
+- Requested loan amount
+- Borrower FICO
+- Borrower experience
+- Liquid assets
+- Loan term
+- Requested note rate
+
+Dropdown menus and validation rules reduce incorrect entries while conditional formatting automatically disables fields that are not applicable for the selected loan program.
+
+---
+
+### 3. Review results instantly
+
+Switch to the Quote Summary page.
+
+All underwriting calculations update automatically, including:
+
+- Loan eligibility
+- Leverage metrics
+- Pricing validation
+- Cash-to-close
+- Net funding
+- Prepaid interest
+- Settlement estimates
+
+No manual calculations or separate pricing worksheets are required.
+
+---
+
+### 4. Repeat for every new loan
+
+Each additional loan only requires replacing the borrower inputs.
+
+There is no need to rebuild formulas, modify calculations, or redesign reports. The pricing engine remains reusable across Bridge Loans, Fix-and-Flip Loans, Heavy Rehab, Light Rehab, and Construction financing scenarios.
+
+**Set the underwriting parameters once. Enter the loan scenario. Review the pricing. Generate the quote. Repeat whenever another loan needs to be evaluated.**
+
+---
+
+# Why I Built This
+
+Residential Transitional Loan underwriting often appears straightforward because experienced lenders already know the major ratios they want to approve. In reality, most pricing mistakes happen long before a loan reaches committee review.
+
+The problem is rarely calculating LTV or LTC individually. The problem is evaluating every underwriting rule simultaneously while also protecting lender profitability.
+
+A processor might calculate an acceptable LTV but overlook that the requested note rate no longer satisfies the minimum spread requirement. Another originator may quote an attractive rate that fits borrower expectations but unintentionally prices below the lender's required buy rate. A third transaction may satisfy leverage requirements but still require substantially more borrower cash than expected because prepaid interest and servicing fees reduce available funding.
+
+Instead of relying on multiple disconnected spreadsheets or manually checking underwriting guidelines one rule at a time, I wanted a reusable analytical framework that evaluates every major underwriting constraint together.
+
+For example:
+
+**Before**
+
+- LTV looks acceptable.
+- Borrower receives a verbal quote.
+- Pricing review later discovers insufficient lender spread.
+- Quote must be revised.
+- Borrower confidence decreases.
+- Internal processing time increases.
+
+**After**
+
+The workbook evaluates leverage, pricing, spread protection, settlement costs, liquidity requirements, and eligibility together before the quote is issued. The lender immediately knows whether the scenario passes, requires an exception, or should not proceed.
+
+This workbook is not simply a calculator. It packages underwriting reasoning into a repeatable decision-support process that reduces inconsistent loan structuring across different users.
+
+---
+
+# Common RTL Lending Problems This Solves
+
+| Problem | Without This Tool | With This Tool |
+|------------|-----------------|----------------|
+| Loan approved using only one leverage ratio | Important underwriting limits may be overlooked until final review | All major leverage ratios are evaluated simultaneously before quoting |
+| Manual pricing | Different originators quote different rates for identical borrowers | Pricing is generated consistently using centralized pricing rules |
+| Hidden profitability erosion | Loans appear acceptable but violate minimum margin requirements | Spread validation immediately flags pricing below lender requirements |
+| Unexpected borrower cash requirement | Settlement costs discovered late in closing | Cash-to-close and net funding are calculated during initial structuring |
+| Loan exceptions identified too late | Multiple revisions delay underwriting | Exception scenarios are highlighted immediately for management review |
+| Internal pricing logic exposed | Sensitive buy-rate calculations become visible to external users | Internal pricing sheets remain protected in originator-facing versions |
+
+---
+
+# Who This Is For
+
+This workbook is designed for professionals involved in Residential Transitional Lending, including:
+
+- Private lenders
+- Hard money lenders
+- Loan originators
+- Loan processors
+- Underwriters
+- Capital markets teams
+- Small lending firms seeking standardized loan pricing
+- Credit teams evaluating Bridge, Rehab, and Construction loans
+
+It is particularly useful for organizations that need a lightweight underwriting workflow without implementing a full Loan Origination System (LOS).
+
+This is **not** intended to replace enterprise lending platforms, servicing software, or compliance management systems.
+
+No spreadsheet expertise is required. Open the browser version or Excel workbook, enter the loan information, and begin evaluating loan scenarios immediately.
+
+---
+
+# About
+
+I build lightweight analytical tools for situations where too many operational variables must be considered at the same time. Rather than replacing enterprise software, these workbooks package practical decision-making into reusable frameworks that help teams reach consistent conclusions with less manual effort.
+
+The **RTL Loan Sizer / Pricer** follows that philosophy by bringing underwriting rules, pricing logic, leverage validation, settlement calculations, and quote generation together in one structured workflow. The central question is always the same: **What information needs to be visible in one place to make the next lending decision confidently?**
+## Technical Details
 
 <details>
-<summary>Formulas</summary>
+<summary><strong>For technical reviewers, Excel practitioners, and collaborators</strong></summary>
+
+---
+
+# Workbook Architecture
+
+The workbook follows a layered architecture that separates user interaction, business rules, analytical calculations, and presentation. This prevents accidental modification of pricing logic while keeping daily operation simple for loan originators.
+
+```text
+                    USER LAYER
+ ┌─────────────────────────────────────┐
+ │          01_ReadMe                  │
+ │ Documentation & Version Control     │
+ └─────────────────────────────────────┘
+                    │
+                    ▼
+ ┌─────────────────────────────────────┐
+ │          02_Inputs                  │
+ │ Borrower & Loan Information         │
+ └─────────────────────────────────────┘
+                    │
+                    ▼
+ ┌─────────────────────────────────────┐
+ │ 03_Pricing_&_Assumptions            │
+ │ Pricing Rules & Risk Parameters     │
+ └─────────────────────────────────────┘
+                    │
+                    ▼
+ ┌─────────────────────────────────────┐
+ │       04_Calc_Engine                │
+ │ Underwriting & Pricing Logic        │
+ └─────────────────────────────────────┘
+                    │
+                    ▼
+ ┌─────────────────────────────────────┐
+ │      05_Quote_Summary               │
+ │ Client Ready Output                 │
+ └─────────────────────────────────────┘
+```
+
+## Worksheet Responsibilities
+
+| Worksheet | Purpose | Editable |
+|------------|---------|----------|
+| 01_ReadMe | Instructions, version history, administrator documentation | Yes |
+| 02_Inputs | Borrower information and requested loan terms | Yes |
+| 03_Pricing_&_Assumptions | Buy rate grids, leverage rules, pricing assumptions | Administrators only |
+| 04_Calc_Engine | Underwriting calculations, pricing engine and validation | No |
+| 05_Quote_Summary | Client-facing printable term sheet | No |
+
+---
+
+## Data Flow
+
+```text
+Borrower Inputs
+        │
+        ▼
+Input Validation
+        │
+        ▼
+Pricing Lookup
+        │
+        ▼
+Leverage Calculations
+        │
+        ▼
+Eligibility Validation
+        │
+        ▼
+Settlement Calculations
+        │
+        ▼
+Profitability Analysis
+        │
+        ▼
+Quote Summary
+```
+
+Every output displayed to users originates from the calculation engine. No values are manually entered into the final quote.
+
+---
+
+# Security Strategy
+
+The workbook is intentionally compiled into two distribution formats.
+
+| Version | Intended Users | Protected Components |
+|---------|----------------|----------------------|
+| Internal Version | Principals, Underwriters, Operations | All worksheets visible with administrator password |
+| Originator Version | Loan Originators | Pricing tables and calculation engine hidden using xlSheetVeryHidden |
+
+Additional protection measures include:
+
+- Workbook Structure Protection
+- Hidden formulas
+- Locked calculation cells
+- Protected pricing grids
+- Hidden Formula Bar (Originator Version)
+- Password-protected worksheet structure
+
+This approach protects proprietary lender pricing without maintaining two independent workbooks.
+
+---
+
+# Three Traps That Catch Even Experienced Loan Originators
+
+---
+
+## Trap 1 — Looking Only at LTV
+
+Many lenders instinctively focus on Loan-to-Value because it is the most familiar underwriting metric.
+
+Unfortunately, Transitional Lending rarely relies on only one leverage ratio.
+
+### Incorrect Decision
+
+Purchase Price
 
 ```
-Actual_LTV = Loan_Amount / As_Is_Value
-Actual_LTC = Loan_Amount / (Purchase_Price + Rehab_Budget)
-Flag       = "Fail" if Actual > Cap
-           = "Exception" if Actual >= Cap - 0.05
-           = "Pass" otherwise
-Global_Eligibility = "Fail" if ANY flag = "Fail"
+$400,000
 ```
-</details>
 
-### Trap 2 — The Stale Buy-Rate Trap
+Requested Loan
 
-**The decision:** A Heavy Rehab deal is quoted at a 10.75% note rate. The originator recalls the desk's target margin as roughly 2 points and treats the deal as priced correctly.
+```
+$320,000
+```
 
-**The unnoticed flaw:** Buy rate is not a fixed number. It is looked up against the borrower's FICO tier and the deal's actual LTV tier, and that lookup returned 9.75% — not the lower buy rate the originator was picturing from a prior, better-leveraged file.
+As-Is Value
 
-**How the flaw changes the recommendation:** Spread is 10.75% minus 9.75%, or 1.00 point — less than half the desk's 2.50-point minimum floor.
+```
+$420,000
+```
 
-**Why the reasoning was wrong:** Margin was estimated from memory of a typical spread, not recalculated from the actual FICO/LTV-tier intersection on this file. Buy rate moves with leverage; assuming it stayed flat is the error.
+Calculated LTV
 
-**Corrected approach:** Recompute spread from the actual tier lookup whenever loan amount, FICO, or As-Is Value changes — never carry a margin assumption across deals.
+```
+76.2%
+```
 
-**Corrected outcome:** Spread Status returns Below Margin with a 1.50-point deficit. The desk raises the note rate or declines the file before committing terms to the borrower.
+The originator concludes:
 
-| | Assumed | Actual |
-|---|---|---|
-| Buy Rate | ~8.75% (recalled) | 9.75% (tier lookup) |
-| Spread | ~2.00% | 1.00% |
-| Status | Looks fine | **Below Margin (-1.50 pts)** |
+> "The loan fits within policy."
+
+However...
+
+Rehab Budget
+
+```
+$160,000
+```
+
+Total Project Cost
+
+```
+$560,000
+```
+
+Actual LTC
+
+```
+57.1%
+```
+
+Actual LTARV
+
+```
+88%
+```
+
+The LTARV exceeds internal policy.
+
+The loan is actually outside lending guidelines.
+
+### Correct Approach
+
+Evaluate:
+
+- LTV
+- LTC
+- LTARV
+- LTP
+
+before determining eligibility.
 
 <details>
-<summary>Formulas</summary>
 
+<summary>Formula Reference</summary>
+
+```excel
+Actual LTV
+=IFERROR(LoanAmount/AsIsValue,0)
+
+Actual LTC
+=IFERROR(LoanAmount/(PurchasePrice+RehabBudget),0)
+
+Actual LTARV
+=IF(ARV=0,0,
+IFERROR(LoanAmount/ARV,0))
 ```
-FICO_Tier = largest tier in {620,640,660,680,700,720,740} <= Borrower_FICO
-LTV_Tier  = largest tier in {50%,55%,...,80%}             <= Actual_LTV
-Buy_Rate  = Grid[FICO_Tier][LTV_Tier]
-Spread    = Note_Rate - Buy_Rate
-Status    = "Below Margin" if Spread < Min_Spread_Floor else "Valid"
-```
+
 </details>
 
-### Trap 3 — The Gross-vs-Net Funding Trap
+Result:
 
-**The decision:** A $600,000 Construction loan against a $630,000 total project cost looks $30,000 short at closing. The borrower has $25,000 verified liquid — close enough, the file moves forward.
+The workbook automatically evaluates every leverage ratio together before assigning a Pass, Exception, or Fail status.
 
-**The unnoticed flaw:** The $30,000 gap was calculated against the gross loan amount. It ignores two deductions that happen before any dollar reaches the borrower: prepaid short interest and the servicing fee reserve.
+---
 
-**How the flaw changes the recommendation:** Short interest on this file is $4,000 (20 days at a 12% note rate). The servicing fee reserve is $2,250 over an 18-month term. Net funding is $593,750 — not $600,000.
+## Trap 2 — Quoting Before Checking Margin
 
-**Why the reasoning was wrong:** Cash-to-close is a function of net funding, not gross loan amount. Treating the two as interchangeable understates the real gap by exactly the amount of the deductions.
+A borrower requests an attractive rate.
 
-**Corrected approach:** Compute net funding first — gross loan amount minus short interest minus the servicing fee reserve — then compare that figure, not the gross amount, to total project cost.
+The originator lowers the note rate to remain competitive.
 
-**Corrected outcome:** Cash-to-close is actually $36,250. Against $25,000 in verified liquidity, the real shortfall is $11,250 — more than double what the gross-amount math suggested.
+Everything appears acceptable.
 
-| | Gross-Amount Math | Net-Funding Math |
-|---|---|---|
-| Funding figure used | $600,000 | $593,750 |
-| Cash-to-Close | $30,000 | **$36,250** |
-| Shortfall vs. $25,000 liquid | $5,000 | **$11,250** |
+Later...
+
+Secondary marketing discovers that lender spread has fallen below internal minimums.
+
+The quote must be revised.
+
+### Incorrect Decision
+
+Borrower Rate
+
+```
+10.00%
+```
+
+Buy Rate
+
+```
+8.20%
+```
+
+Spread
+
+```
+1.80%
+```
+
+Minimum Required Spread
+
+```
+2.50%
+```
+
+The transaction is actually below lender profitability requirements.
+
+### Correct Approach
+
+Every quote should validate pricing before presentation.
 
 <details>
-<summary>Formulas</summary>
 
+<summary>Formula Reference</summary>
+
+```excel
+Spread
+
+=NoteRate-BuyRate
+
+Spread Status
+
+=IF(
+Spread<MinimumSpread,
+"Below Margin",
+"Valid")
 ```
-Short_Interest  = Loan_Amount * (Note_Rate / 360) * Short_Interest_Days
-Servicing_Fee   = Loan_Amount * (Annual_Fee_Pct / 12) * Term_Months
-Net_Funding     = Loan_Amount - Short_Interest - Servicing_Fee
-Cash_To_Close   = MAX(0, Total_Project_Cost - Net_Funding)
-Liquidity_Gap   = MAX(0, Cash_To_Close - Verified_Liquid_Assets)
-```
+
 </details>
 
----
-
-## Example Scenario
-
-A Fix-and-Flip deal arrives: $350,000 purchase price, $380,000 as-is value, $65,000 rehab budget, $520,000 ARV. The borrower requests $340,000 at an 11.50% note rate, carries a 690 FICO, three to five completed projects, $45,000 in verified liquid assets, a 12-month term, and 15 days of prepaid short interest.
-
-Leverage runs first. LTV is 340,000 / 380,000 = 89.47% against a 90% cap — inside the line but past the 85% exception threshold. LTC is 340,000 / 415,000 = 81.93% against an 85% cap — same exception pattern. LTARV is 340,000 / 520,000 = 65.38% against a 70% cap, again inside the 65-point exception band. No single metric fails outright. All three sit in the same narrow exception zone — exactly the pattern a metric-by-metric review misses and a global gate catches: Global Eligibility returns Exception Needed, not Pass.
-
-Pricing runs next. FICO 690 and LTV 89.47% resolve to the 680 / 80% tier on the grid: an 11.25% buy rate. Spread is 11.50% minus 11.25%, or 0.25 points, against a 2.50-point minimum floor. Status returns Below Margin, with a 2.25-point deficit.
-
-Settlement runs last. Servicing fee reserve is $850. Short interest on 15 days at 11.50% is $1,629. Net funding is $337,521. Total project cost is $415,000, putting cash-to-close at $77,479. Against $45,000 in verified liquidity, the shortfall is $32,479.
-
-**Recommendation:** this deal does not close as structured. Three leverage metrics simultaneously sitting in the exception band, a spread under 10% of the required floor, and a $32,479 liquidity gap are three independent reasons to renegotiate terms — not one originator's judgment call to override.
-
----
-
-## What The Workbook Actually Delivers (Not How It Calculates)
-
-- A single Pass / Exception Needed / Fail answer that requires all three leverage caps to clear at once — never a partial check.
-- A live spread calculation against the actual FICO/LTV-tier buy rate, not a remembered margin target.
-- A net-funding-based cash-to-close figure that already accounts for short interest and the servicing fee reserve.
-- A liquidity shortfall figure compared against verified borrower assets, not an estimate.
-- A client-safe quote view that never exposes buy rate, spread, or lender profit to anyone outside the desk.
-- The same gated answer whether the deal is entered once or re-run ten times — no manual recalculation steps to skip.
-
----
-
-## Workbook Logic (For the Skeptical Reviewer)
-
-Five layers, each reading only from the layer above it.
+Instead of discovering the problem during final review, the workbook immediately flags:
 
 ```
-Guide         → no calculations, documentation only
-Inputs        → single point of data entry, no formulas
-Pricing       → leverage caps, spread floor, buy-rate grid (admin-editable)
-Calc Engine   → every leverage, eligibility, pricing, and settlement formula
-Quote Summary → formula links into Calc Engine only — zero hardcoded values
+Below Margin
 ```
 
-Data flows one direction. Inputs never read from Calc Engine. Quote Summary never reads from Inputs or Pricing directly — every figure on the client-facing view references Calc Engine, so the number an underwriter sees and the number a borrower sees cannot drift apart.
-
-Validation runs in two passes. The first computes the three leverage ratios and assigns a Pass / Exception / Fail flag to each, independently. The second collapses those flags into one Global Eligibility value — Fail dominates Exception, Exception dominates Pass. Pricing runs in parallel: a tier lookup resolves buy rate, spread is computed against it, and checked against the floor.
-
-Output dependency is intentionally narrow. Buy rate, spread, and lender profit exist only inside Calc Engine and are never referenced anywhere in Quote Summary's formulas — the privacy boundary is structural, not a formatting choice.
+allowing pricing to be corrected before the borrower receives a quote.
 
 ---
 
-## Implementation Notes (For Those Who Want to Look Under the Hood)
+## Trap 3 — Underestimating Cash Required at Closing
+
+Many borrowers evaluate only the requested loan amount.
+
+Settlement costs reduce actual proceeds.
+
+Ignoring these deductions frequently produces unrealistic borrower expectations.
+
+### Example
+
+Requested Loan
+
+```
+$450,000
+```
+
+Short Interest
+
+```
+$6,250
+```
+
+Servicing Fee
+
+```
+$2,250
+```
+
+Net Funding
+
+```
+$441,500
+```
+
+Required Cash
+
+```
+$468,000
+```
+
+Actual Cash to Close
+
+```
+$26,500
+```
+
+If borrower liquidity equals only
+
+```
+$18,000
+```
+
+the loan cannot close without additional funds.
+
+### Correct Approach
+
+Calculate settlement proceeds rather than assuming gross loan amount equals available funding.
 
 <details>
-<summary>Leverage and eligibility formulas</summary>
 
+<summary>Formula Reference</summary>
+
+```excel
+Net Funding
+
+=LoanAmount
+-ShortInterest
+-ServiceFee
+
+Cash To Close
+
+=MAX(
+0,
+TotalProjectCost-
+NetFunding)
+
+Liquidity Shortfall
+
+=MAX(
+0,
+CashToClose-
+LiquidAssets)
 ```
-Actual_LTV   = IF(As_Is_Value=0, 0, Loan_Amount / As_Is_Value)
-Actual_LTC   = IF((Purchase+Rehab)=0, 0, Loan_Amount / (Purchase+Rehab))
-Actual_LTARV = IF(ARV=0, 0, Loan_Amount / ARV)
-Flag(x, cap) = IF(cap=NULL OR x=0, "N/A",
-               IF(x > cap, "Fail",
-               IF(x >= cap-0.05, "Exception", "Pass")))
-Global_Eligibility = IF(ANY flag="Fail", "Fail",
-                     IF(ANY flag="Exception", "Exception Needed", "Pass"))
-```
+
+</details>
+
+The workbook identifies liquidity shortages before closing documents are prepared.
+
+---
+
+# Example Scenario
+
+Consider the following Fix-and-Flip transaction.
+
+| Item | Value |
+|------|------:|
+| Purchase Price | $300,000 |
+| Rehab Budget | $70,000 |
+| As-Is Value | $310,000 |
+| ARV | $465,000 |
+| Requested Loan | $340,000 |
+| FICO | 726 |
+| Experience | 6+ Projects |
+| Note Rate | 11.25% |
+| Loan Term | 12 Months |
+
+The pricing engine retrieves the corresponding Buy Rate based on the borrower's FICO tier and calculated leverage.
+
+The calculation engine then determines:
+
+- Actual LTV
+- Actual LTC
+- Actual LTP
+- Actual LTARV
+- Spread
+- Net Funding
+- Cash to Close
+- Estimated Lender Profit
+
+Suppose the resulting metrics are:
+
+| Metric | Result |
+|---------|-------:|
+| LTV | 109.7% |
+| LTC | 91.9% |
+| LTARV | 73.1% |
+| Spread | 3.10% |
+| Eligibility | Exception Needed |
+
+Although pricing remains profitable, leverage exceeds the preferred LTV threshold.
+
+Rather than immediately declining the loan, the workbook classifies it as **Exception Needed**, allowing management to review compensating factors such as borrower experience, liquidity, or additional collateral.
+
+This structured workflow creates a consistent underwriting process where pricing, leverage, settlement, and profitability are evaluated together rather than independently.
+
+---
+
+# Formula Reference
+
+<details>
+
+<summary>Leverage Calculations</summary>
+
+| Calculation | Formula |
+|-------------|---------|
+| Actual LTV | `Loan Amount ÷ As-Is Value` |
+| Actual LTC | `Loan Amount ÷ (Purchase + Rehab)` |
+| Actual LTP | `Loan Amount ÷ Purchase Price` |
+| Actual LTARV | `Loan Amount ÷ ARV` |
+
 </details>
 
 <details>
-<summary>Pricing and settlement formulas</summary>
 
-```
-Buy_Rate       = INDEX(Grid, MATCH(FICO, FICO_Tiers, 1), MATCH(LTV, LTV_Tiers, 1))
-Spread         = Note_Rate - Buy_Rate
-Spread_Status  = IF(Spread < Min_Spread_Floor, "Below Margin", "Valid")
-Servicing_Fee  = Loan_Amount * (Annual_Fee_Pct/12) * Term_Months
-Short_Interest = Loan_Amount * (Note_Rate/360) * Short_Interest_Days
-Net_Funding    = Loan_Amount - Short_Interest - Servicing_Fee
-Cash_To_Close  = MAX(0, Total_Project_Cost - Net_Funding)
-Liquidity_Gap  = MAX(0, Cash_To_Close - Verified_Liquid_Assets)
-```
+<summary>Pricing Engine</summary>
+
+| Formula | Purpose |
+|----------|----------|
+| XLOOKUP | Retrieve Buy Rate |
+| INDEX + MATCH | Legacy pricing lookup |
+| Spread | Note Rate − Buy Rate |
+| Spread Status | Margin validation |
+
+Pricing always uses exact lookup behavior with default error handling to prevent invalid pricing outputs.
+
 </details>
 
 <details>
-<summary>Validation rules</summary>
 
-Every division is guarded against a zero or blank denominator — a cleared input returns zero or "N/A," not a formula error. Buy-rate lookups that fall outside the grid return a flag, not a blank cell, so a missing rate stays visible rather than silently zero.
+<summary>Settlement Calculations</summary>
+
+| Calculation | Purpose |
+|-------------|----------|
+| Short Interest | Interest collected at closing |
+| Servicing Fee | Fee deducted over loan term |
+| Net Funding | Funds available to borrower |
+| Cash to Close | Additional borrower contribution |
+| Liquidity Shortfall | Funding deficiency |
+
 </details>
 
 <details>
-<summary>Two implementations, one formula set</summary>
 
-The Excel workbook and the standalone web version run identical formula logic — one in spreadsheet formulas, one in JavaScript — checked against the same test deals to confirm matching Global Eligibility, Spread Status, and Cash-to-Close figures before either was published. The Excel file targets Excel 2016 and later; the web version runs in any modern browser, with no server, no install, and no external dependency.
+<summary>Eligibility Rules</summary>
+
+The underwriting engine evaluates:
+
+- Maximum LTV
+- Maximum LTC
+- Maximum LTARV
+- Pricing Margin
+- Borrower Liquidity
+
+Possible outcomes:
+
+- PASS
+- EXCEPTION NEEDED
+- FAIL
+
+The overall eligibility always reflects the most restrictive underwriting result.
+
 </details>
 
+# Validation Rules
+
+| Field | Validation Rule | Error Behavior |
+|------|-----------------|----------------|
+| Loan Type | Dropdown only | Reject invalid values |
+| Purchase Price | Greater than zero | Return zero calculations |
+| As-Is Value | Greater than zero | Prevent divide-by-zero |
+| Rehab Budget | Zero for Bridge loans | Field automatically grayed out |
+| ARV | Required for rehab products | Display N/A where applicable |
+| Requested Loan | Positive currency | Reject negative values |
+| FICO | 300–850 | Reject invalid score |
+| Experience Tier | Dropdown only | Prevent lookup failures |
+| Loan Term | 12 / 18 / 24 months | Reject other values |
+| Short Interest Days | 0–30 | Reject invalid input |
+| Buy Rate Lookup | XLOOKUP with fallback value | "Check Risk Rules" |
+| Division Operations | IFERROR wrapper | Return 0 instead of Excel errors |
+| Text Lookups | TRIM + UPPER | Prevent spacing and case mismatches |
+| Margin Check | Compare against minimum spread | Return "Below Margin" |
+| Eligibility | Evaluate all underwriting flags | PASS / EXCEPTION NEEDED / FAIL |
+
+</details>
 ---
 
-## Get The Workbook
+## Other Tools in This Series
 
-Two formats, same engine. `RTL_Loan_Sizer_Pricer.xlsx` for desks that work inside Excel. `RTL_Loan_Sizer_Pricer_App.html` for a browser-based version with no install — open the file, no spreadsheet software required. Both compute the same gates from the same inputs. Pull either one, drop in a deal, and check whether it actually clears.
+The **RTL Loan Sizer / Pricer** is part of a growing collection of lightweight operational decision-support tools built for professionals who need reliable analysis without implementing enterprise software.
+
+Each tool follows the same principles:
+
+- No signup required
+- No installation required
+- Available in Browser and Excel editions
+- Formula-driven rather than macro-dependent
+- Built for repeatable operational decisions instead of one-off reporting
+
+| Tool | Purpose |
+|------|---------|
+| Construction Estimating System | Standardize project estimating, assemblies, bid pricing, and cost tracking. |
+| Inventory Forecasting & Reorder Planner | Forecast inventory demand, identify replenishment timing, and monitor stock risk. |
+| Retail & Maquila Inventory Ledger | Track piece-level inventory movement, production, defects, and distribution. |
+| Unified Personal & Business Budget Framework | Consolidate personal and business cash flow into one financial planning model. |
+| Cross-Border VAT Compliance Dashboard | Monitor VAT obligations across multiple countries and selling channels. |
+| Project Financial Control Dashboard | Compare budget, commitments, invoices, progress billing, and project profitability. |
+| Coffee Shop Operations Audit Toolkit | Evaluate café operational performance using standardized audit scoring and KPI analysis. |
+
+Future releases follow the same design philosophy: lightweight analytical frameworks that package practical operational reasoning into reusable tools.
+
+Repository and download links may be added here as additional projects become publicly available.
 
 ---
 
-## Limitations
+# Design Principles
 
-This is a pricing and eligibility calculator, not a loan origination system. It does not connect to a live rate sheet, a credit bureau, or a loan servicing platform — every input is entered manually, and the buy-rate grid is only as current as whoever last updated it. It does not make a credit decision or satisfy a regulatory compliance requirement; Exception Needed means a human underwriter reviews the file, not that the workbook approved it. It assumes a single borrower and a single property per run — no multi-property or cross-collateralized scenarios. Day-count conventions (Actual/360) and the 5-point exception buffer are fixed assumptions that should be checked against the desk's actual policy before relying on the output for a real commitment.
+This workbook intentionally prioritizes operational reliability over spreadsheet complexity.
 
----
+The implementation follows several guiding principles:
 
-## Other Decision Tools You Might Need
+### Decision Support Rather Than Data Storage
 
-The same gate-before-quote approach applies beyond RTL pricing:
+The workbook is designed to help lenders make underwriting and pricing decisions.
 
-- Healthcare pricing and margin analysis, for desks pricing against actuarial assumptions instead of leverage caps.
-- Inventory replenishment planning, for operations gating reorder decisions against multiple stock thresholds at once.
-- Lightweight asset tracking and audit, for teams that need a Pass/Fail gate on compliance status rather than a free-form log.
-
-Available on request — see the builder's other listings.
+It is **not** intended to become a permanent loan database or replace a Loan Origination System (LOS).
 
 ---
 
-## License
+### Separate Inputs from Business Rules
 
-Licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). Use, modification, and redistribution are permitted under the terms of that license; see the `LICENSE` file in this repository for the full text.
+Borrowers change.
+
+Pricing changes.
+
+Risk policies change.
+
+The calculation logic should not.
+
+By separating inputs, pricing assumptions, calculations, and presentation into dedicated worksheets, administrative updates can be performed without rewriting formulas throughout the workbook.
+
+---
+
+### Protect Intellectual Property
+
+For private lenders, proprietary pricing models represent competitive advantage.
+
+The Originator version therefore hides:
+
+- Buy Rate matrices
+- Margin calculations
+- Internal pricing assumptions
+- Formula logic
+- Administrative rule tables
+
+Loan originators receive only the information required to structure and quote loans.
+
+---
+
+### Fail Safely
+
+Every calculation is designed to degrade gracefully.
+
+Instead of producing Excel errors such as:
+
+```
+#DIV/0!
+
+#REF!
+
+#VALUE!
+
+#N/A
+```
+
+the workbook returns either:
+
+- zero
+- N/A
+- Check Risk Rules
+- Exception Needed
+
+allowing underwriting to continue without exposing broken worksheets.
+
+---
+
+### One Source of Truth
+
+Every value displayed on the Quote Summary originates from the Calculation Engine.
+
+Nothing on the final printable quote should be manually edited.
+
+This eliminates inconsistencies between internal underwriting calculations and client-facing loan terms.
+
+---
+
+# Versioning
+
+| Version | Status | Notes |
+|----------|---------|------|
+| v1.0 | Initial Release | Core underwriting workflow, pricing engine, settlement calculations, quote generation |
+| Future | Planned | Expanded pricing matrices, additional loan products, configurable lender templates |
+
+---
+
+# Planned Enhancements
+
+Potential future enhancements include:
+
+- Multi-lender pricing comparison
+- Adjustable exception tolerance buffers
+- Dynamic pricing sensitivity analysis
+- Interest reserve calculations
+- Draw schedule management
+- Construction inspection tracking
+- Multi-state fee libraries
+- Export to PDF with branded lender templates
+- Scenario comparison mode
+- Historical pricing archive
+- Adjustable day-count conventions (30/360, Actual/365, Actual/360)
+- Optional integration with external LOS exports
+
+These enhancements are intentionally kept outside the core workbook to preserve simplicity, transparency, and maintainability.
+
+---
+
+# Contributing
+
+Contributions are welcome where they improve:
+
+- underwriting consistency
+- calculation accuracy
+- workbook maintainability
+- documentation quality
+- validation robustness
+- cross-version compatibility
+- usability for lending professionals
+
+When proposing changes, preference should be given to improvements that preserve the workbook's lightweight architecture and avoid unnecessary complexity.
+
+---
+
+# License
+
+This project is licensed under the **Apache License 2.0**.
+
+You are free to:
+
+- Use
+- Modify
+- Distribute
+- Adapt
+- Incorporate into commercial workflows
+
+provided that all distributions comply with the terms of the Apache License 2.0.
+
+See the accompanying **LICENSE** file for the complete license text.
+
+---
+
+# Disclaimer
+
+This workbook is intended as an analytical decision-support tool.
+
+It does **not** constitute:
+
+- legal advice,
+- lending advice,
+- underwriting approval,
+- accounting guidance,
+- regulatory compliance certification,
+- investment recommendation.
+
+All loan decisions remain subject to the lending institution's underwriting policies, applicable regulations, investor requirements, and final credit approval.
+
+Users are responsible for verifying all assumptions, pricing parameters, fee schedules, and underwriting rules before relying on the generated outputs.
+
+---
+
+## Acknowledgements
+
+This project reflects common underwriting practices used in Residential Transitional Lending, including Bridge Loans, Fix-and-Flip financing, Rehabilitation Loans, and Residential Construction Lending.
+
+Its architecture emphasizes transparency, repeatability, and operational consistency so that pricing decisions can be reproduced, reviewed, and audited rather than depending on individual spreadsheet knowledge.
+
+---
+
+**Apache License 2.0 © 2026**
+
+Built as part of a broader collection of lightweight operational decision-support tools for finance, construction, inventory management, and business operations.
