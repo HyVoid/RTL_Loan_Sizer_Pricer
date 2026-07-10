@@ -12,7 +12,7 @@
 > ## No signup. No installation. Free.
 >
 > 🌐 **Open in Browser**  
-> *(HTML version placeholder)*
+> [*HTML version*](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/)
 >
 > 📥 **Download Excel**  
 > [*Excel download*](https://alexhasgreatestuff.gumroad.com/l/okqdlp)
