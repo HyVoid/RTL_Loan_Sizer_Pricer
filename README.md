@@ -15,7 +15,7 @@
 > [*HTML version*](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/)
 >
 > 📥 **Download Excel**  
-> [*Excel download*](https://alexhasgreatestuff.gumroad.com/l/okqdlp)
+> [*Excel download*](https://alexhasgreatestuff.gumroad.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
 
 ---
 
