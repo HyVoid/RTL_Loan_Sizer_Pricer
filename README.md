@@ -19,15 +19,6 @@
 
 ---
 
-# Screenshots
-
-<img width="1024" height="572" alt="image" src="https://github.com/user-attachments/assets/91253368-509f-412c-93eb-0e01323b0b3f" />
-
-
-*The Excel workbook provides the complete underwriting workflow, pricing engine, validation logic, and printable lender-ready term sheet.*
-
----
-
 # What It Helps You Track
 
 - Loan eligibility against underwriting leverage limits before a quote is issued.
