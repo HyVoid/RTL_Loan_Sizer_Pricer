@@ -9,7 +9,9 @@
 
 **Size, validate, and price Residential Transitional Loans consistently in minutes—without installation, without coding, and without exposing proprietary pricing logic. Available as both a browser version and an Excel workbook.**
 
-> ## No signup. No installation. Free.
+**No signup. No installation. Free in your browser.**
+
+Try the browser version for free. If you need the Excel version, you can buy it with a 7-day money-back guarantee.
 >
 > 🌐 **Open in Browser**  
 > [*HTML version*](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/)
