@@ -1,6 +1,7 @@
+[ 🌐 عربي ](README.ar.md) | [ 🇩🇪 Deutsch ](README.de.md) | [ 🇫🇷 Français ](README.fr.md) | [ 🇳🇱 Nederlands ](README.nl.md) | [ 🇪🇸 Español ](README.sp.md) | [ 🇬🇧 English ](README.md)
 # RTL Loan Sizer / Pricer
 
-### Lightweight Residential Transitional Loan Decision Support Tool for Accurate Loan Structuring, Pricing, Eligibility Validation, and Client-Ready Quote Generation
+## Lightweight Residential Transitional Loan Decision Support Tool for Accurate Loan Structuring, Pricing, Eligibility Validation, and Client-Ready Quote Generation
 
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
 ![Platform](https://img.shields.io/badge/Platform-Browser%20%7C%20Excel-success)
@@ -21,7 +22,7 @@ Try the browser version for free. If you need the Excel version, you can buy it 
 
 ---
 
-# What It Helps You Track
+## What It Helps You Track
 
 - Loan eligibility against underwriting leverage limits before a quote is issued.
 - Actual LTV, LTC, LTP, and LTARV across different residential transitional loan structures.
@@ -32,7 +33,7 @@ Try the browser version for free. If you need the Excel version, you can buy it 
 
 ---
 
-# Quick Start Workflow
+## Quick Start Workflow
 
 ### 1. Configure underwriting assumptions
 
@@ -89,7 +90,7 @@ There is no need to rebuild formulas, modify calculations, or redesign reports. 
 
 ---
 
-# Why I Built This
+## Why I Built This
 
 Residential Transitional Loan underwriting often appears straightforward because experienced lenders already know the major ratios they want to approve. In reality, most pricing mistakes happen long before a loan reaches committee review.
 
@@ -118,7 +119,7 @@ This workbook is not simply a calculator. It packages underwriting reasoning int
 
 ---
 
-# Common RTL Lending Problems This Solves
+## Common RTL Lending Problems This Solves
 
 | Problem | Without This Tool | With This Tool |
 |------------|-----------------|----------------|
@@ -131,7 +132,7 @@ This workbook is not simply a calculator. It packages underwriting reasoning int
 
 ---
 
-# Who This Is For
+## Who This Is For
 
 This workbook is designed for professionals involved in Residential Transitional Lending, including:
 
@@ -152,7 +153,7 @@ No spreadsheet expertise is required. Open the browser version or Excel workbook
 
 ---
 
-# About
+## About
 
 I build lightweight analytical tools for situations where too many operational variables must be considered at the same time. Rather than replacing enterprise software, these workbooks package practical decision-making into reusable frameworks that help teams reach consistent conclusions with less manual effort.
 
@@ -164,7 +165,7 @@ The **RTL Loan Sizer / Pricer** follows that philosophy by bringing underwriting
 
 ---
 
-# Workbook Architecture
+## Workbook Architecture
 
 The workbook follows a layered architecture that separates user interaction, business rules, analytical calculations, and presentation. This prevents accidental modification of pricing logic while keeping daily operation simple for loan originators.
 
@@ -243,7 +244,7 @@ Every output displayed to users originates from the calculation engine. No value
 
 ---
 
-# Security Strategy
+## Security Strategy
 
 The workbook is intentionally compiled into two distribution formats.
 
@@ -265,7 +266,7 @@ This approach protects proprietary lender pricing without maintaining two indepe
 
 ---
 
-# Three Traps That Catch Even Experienced Loan Originators
+## Three Traps That Catch Even Experienced Loan Originators
 
 ---
 
@@ -535,7 +536,7 @@ The workbook identifies liquidity shortages before closing documents are prepare
 
 ---
 
-# Example Scenario
+## Example Scenario
 
 Consider the following Fix-and-Flip transaction.
 
@@ -582,7 +583,7 @@ This structured workflow creates a consistent underwriting process where pricing
 
 ---
 
-# Formula Reference
+## Formula Reference
 
 <details>
 
@@ -648,7 +649,7 @@ The overall eligibility always reflects the most restrictive underwriting result
 
 </details>
 
-# Validation Rules
+## Validation Rules
 
 | Field | Validation Rule | Error Behavior |
 |------|-----------------|----------------|
@@ -695,7 +696,7 @@ Each tool follows the same principles:
 
 ---
 
-# Disclaimer
+## Disclaimer
 
 This workbook is intended as an analytical decision-support tool.
 
