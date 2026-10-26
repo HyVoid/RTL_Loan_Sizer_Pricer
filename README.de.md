@@ -88,6 +88,8 @@ Es ist nicht nötig, Formeln neu aufzubauen, Berechnungen zu ändern oder Berich
 
 **Legen Sie die Kreditprüfungsparameter einmal fest. Geben Sie das Darlehensszenario ein. Prüfen Sie die Preisgestaltung. Erstellen Sie das Angebot. Wiederholen Sie, wann immer ein weiteres Darlehen bewertet werden muss.**
 
+*   👉 [*Laden Sie die Excel-Vorlage für die Offline-Nutzung herunter*](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
+
 ---
 
 ## Warum ich das gebaut habe
