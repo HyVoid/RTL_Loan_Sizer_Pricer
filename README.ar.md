@@ -88,6 +88,8 @@
 
 **اضبط معاملات الاكتتاب مرة واحدة. أدخل سيناريو القرض. راجع التسعير. أنشئ عرض السعر. كرّر كلما احتاج قرض آخر إلى تقييم.**
 
+*   👉 [*نزّل قالب Excel للاستخدام دون اتصال*](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
+
 ---
 
 ## لماذا بنيت هذا المشروع
