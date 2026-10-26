@@ -88,6 +88,8 @@ No hay necesidad de reconstruir fórmulas, modificar cálculos ni rediseñar inf
 
 **Establezca los parámetros de suscripción una sola vez. Ingrese el escenario del préstamo. Revise el precio. Genere la cotización. Repita cada vez que otro préstamo necesite ser evaluado.**
 
+*   👉 [*Descarga la plantilla de Excel para usarla sin conexión*](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
+
 ---
 
 ## Por qué construí esto
