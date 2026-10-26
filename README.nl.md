@@ -88,6 +88,8 @@ Het is niet nodig om formules opnieuw op te bouwen, berekeningen te wijzigen of 
 
 **Stel de parameters voor kredietbeoordeling eenmaal in. Voer het leningsscenario in. Bekijk de prijs. Genereer de prijsopgave. Herhaal wanneer een andere lening moet worden beoordeeld.**
 
+*   👉 [*Download de Excel-sjabloon voor offline gebruik*](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
+
 ---
 
 ## Waarom ik dit heb gebouwd
