@@ -88,6 +88,8 @@ There is no need to rebuild formulas, modify calculations, or redesign reports. 
 
 **Set the underwriting parameters once. Enter the loan scenario. Review the pricing. Generate the quote. Repeat whenever another loan needs to be evaluated.**
 
+*   👉 [*Download the Excel Template for Offline Use*](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
+
 ---
 
 ## Why I Built This
