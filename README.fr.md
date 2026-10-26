@@ -88,6 +88,8 @@ Inutile de reconstruire les formules, de modifier les calculs ou de reconcevoir 
 
 **Définissez les paramètres de souscription une seule fois. Saisissez le scénario de prêt. Examinez la tarification. Générez le devis. Répétez chaque fois qu'un autre prêt doit être évalué.**
 
+*   👉 [*Téléchargez le modèle Excel pour un usage hors ligne*](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
+
 ---
 
 ## Pourquoi j'ai construit cet outil
