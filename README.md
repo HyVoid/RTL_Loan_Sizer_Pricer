@@ -1,165 +1,191 @@
 [ 🌐 عربي ](README.ar.md) | [ 🇩🇪 Deutsch ](README.de.md) | [ 🇫🇷 Français ](README.fr.md) | [ 🇳🇱 Nederlands ](README.nl.md) | [ 🇪🇸 Español ](README.sp.md) | [ 🇬🇧 English ](README.md)
-# RTL Loan Sizer / Pricer
 
-## Lightweight Residential Transitional Loan Decision Support Tool for Accurate Loan Structuring, Pricing, Eligibility Validation, and Client-Ready Quote Generation
+# RTL Loan Sizer & Pricer: Free Residential Transitional Loan Calculator & Fix-and-Flip Excel Underwriting Template
+<img width="1245" height="1209" alt="image" src="https://github.com/user-attachments/assets/856c2ddf-16a5-4212-a162-b3e82ab67dcc" />
 
-![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
-![Platform](https://img.shields.io/badge/Platform-Browser%20%7C%20Excel-success)
-![Tool](https://img.shields.io/badge/Tool-Decision%20Support-orange)
-![Status](https://img.shields.io/badge/Version-Stable-brightgreen)
 
-**Size, validate, and price Residential Transitional Loans consistently in minutes—without installation, without coding, and without exposing proprietary pricing logic. Available as both a browser version and an Excel workbook.**
+![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
+![Platform: Browser Web App and Offline Excel Workbook](https://img.shields.io/badge/Platform-Browser%20%7C%20Excel-success)
+![Category: RTL Underwriting and Loan Pricing Tool](https://img.shields.io/badge/Tool-Decision%20Support-orange)
+![Release Status: Production Stable](https://img.shields.io/badge/Version-Stable-brightgreen)
 
-**No signup. No installation. Free in your browser.**
+**RTL Loan Sizer & Pricer** is a ready-to-use **Residential Transitional Loan (RTL) calculator**, **fix-and-flip loan pricing engine**, and **hard money underwriting Excel template**. Use it to size Bridge, Light Rehab, Heavy Rehab, and Ground-Up Construction loans, validate LTV, LTC, LTP, and LTARV limits, verify lender yield spread against your buy rate, and calculate borrower cash-to-close in under one minute. Test the browser tool free online with no signup, or buy the reusable offline Excel workbook once with a 30-day, no-questions-asked money-back guarantee.
 
-Try the browser version for free. If you need the Excel version, you can buy it with a 30-day, no-questions-asked money-back guarantee.
+> **Free Online Tool (Try Immediately in Your Browser)**  
+> [Launch the Free Browser-Based RTL Loan Calculator (Instant Fix-and-Flip & Bridge Loan Sizer)](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/)
 >
-> 🌐 **Open in Browser**  
-> [*HTML version*](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/)
->
-> 📥 **Download Excel**  
-> [*Excel download*](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
+> **Reusable Offline Spreadsheet (One-Time Purchase, 30-Day Money-Back Guarantee)**  
+> [Get the Reusable Offline RTL Loan Sizer & Pricer Excel Template on Theseus Workshop](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
 
 ---
 
-## What It Helps You Track
+## Residential Transitional Loan Underwriting Pain Points & Automated Solutions
 
-- Loan eligibility against underwriting leverage limits before a quote is issued.
-- Actual LTV, LTC, LTP, and LTARV across different residential transitional loan structures.
-- Borrower funding requirements, net funding proceeds, and estimated cash required at closing.
-- Pricing consistency across FICO tiers, leverage levels, and lender pricing assumptions.
-- Margin protection by identifying loans priced below internal spread requirements.
-- Client-ready loan terms generated from a single underwriting workflow instead of manually assembling calculations.
+Private lending deals stall when leverage limits, credit-tier rate adjustments, and closing deductions are checked in separate spreadsheets. This RTL underwriting tool maps each common calculation gap directly to automated outputs:
 
----
-
-## Quick Start Workflow
-
-### 1. Configure underwriting assumptions
-
-Administrative users define lending parameters once on the dedicated Pricing & Assumptions worksheet. These include leverage limits, pricing grids, servicing fees, spread requirements, loan programs, and underwriting thresholds. These settings normally require only periodic maintenance rather than daily adjustment.
+| Hard Money & RTL Lending Pain Point | Automated Solution in This RTL Loan Sizer | Key Underwriting Metrics & Outputs Tracked |
+| :--- | :--- | :--- |
+| **Quoting ineligible deals before credit review** | Checks every deal automatically against your configured program caps before a term sheet goes out | Pass / Exception / Decline eligibility status across Bridge, Rehab, and Construction programs |
+| **Calculating only one leverage ratio by hand** | Evaluates all four residential transitional loan sizing constraints simultaneously and binds the loan to the strictest limit | **LTV** (Loan-to-Value), **LTC** (Loan-to-Cost), **LTP** (Loan-to-Purchase), and **LTARV** (Loan-to-After-Repair-Value) |
+| **Late-stage borrower cash-to-close surprises** | Deducts origination points, prepaid interest, and servicing fees upfront during initial deal sizing | **Net funding proceeds**, total **cash-to-close**, rehab holdback structure, and liquidity reserve check |
+| **Inconsistent rates across loan originators** | Pulls pricing adjustments from one centralized rate matrix tied to credit score and leverage tiers | **FICO tier pricing**, borrower experience adjustments, and standardized note rate output |
+| **Hidden margin erosion below buy rate** | Flags any requested note rate that drops below your internal yield spread floor immediately | **Lender buy rate**, **minimum spread validation**, and net margin protection status |
+| **Slow manual quote assembly during peak volume** | Consolidates inputs, underwriting rules, and closing math into one formatted client-ready view | Ready-to-send **Quote Summary** and preliminary loan term breakdown |
 
 ---
 
-### 2. Enter a new loan scenario
+## Quick Start Guide: Size and Price a Fix-and-Flip or Bridge Loan in 4 Steps
 
-Open the **Inputs** worksheet and complete the requested information.
+You can run a test scenario right now in the [Free Online RTL Loan Sizer Web App](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/), then move your daily pipeline into the offline Excel workbook once you confirm it fits your lending guidelines.
 
-Typical information includes:
+### Step 1. Set Your Underwriting Rules and Pricing Grid Once
 
-- Purchase price
-- As-Is value
-- Rehabilitation budget
-- After Repair Value (ARV)
-- Requested loan amount
-- Borrower FICO
-- Borrower experience
-- Liquid assets
-- Loan term
-- Requested note rate
+Configure your lending parameters on the **Pricing & Assumptions** worksheet. Enter your maximum leverage limits (LTV, LTC, LTP, LTARV), FICO pricing grids, origination points, servicing fees, minimum lender spread requirements, and supported loan programs. After initial setup, you only update this tab when your capital partner or credit committee changes guidelines.
 
-Dropdown menus and validation rules reduce incorrect entries while conditional formatting automatically disables fields that are not applicable for the selected loan program.
+### Step 2. Paste Borrower and Property Deal Numbers into Inputs
 
----
+Open the **Inputs** worksheet and enter the deal facts:
 
-### 3. Review results instantly
+- Purchase price and As-Is property value
+- Rehabilitation / construction budget and After Repair Value (ARV)
+- Requested loan amount and loan term
+- Borrower FICO score, prior flip experience, and verified liquid assets
+- Requested note rate and selected loan program (Bridge, Light Rehab, Heavy Rehab, or Construction)
 
-Switch to the Quote Summary page.
+Built-in dropdown menus and data validation block invalid entries. Conditional formatting grays out fields that do not apply to the chosen loan program.
 
-All underwriting calculations update automatically, including:
+### Step 3. Read Automated Underwriting, Pricing, and Cash-to-Close Results
 
-- Loan eligibility
-- Leverage metrics
-- Pricing validation
-- Cash-to-close
-- Net funding
-- Prepaid interest
-- Settlement estimates
+Open the **Quote Summary** worksheet to inspect the complete deal breakdown in one place:
 
-No manual calculations or separate pricing worksheets are required.
+- Loan eligibility verdict and exception flags
+- Binding leverage metrics (LTV, LTC, LTP, and LTARV)
+- Rate validation against buy rate and minimum spread rules
+- Prepaid interest, settlement estimates, net funding proceeds, and borrower cash-to-close
 
----
+### Step 4. Switch to the Reusable Offline Excel Workbook for Daily Pipeline Deals
 
-### 4. Repeat for every new loan
+Residential transitional loan pricing involves multi-layered underwriting logic, yet you never need to write a single formula, troubleshoot broken cell references, or double-click to drag equations down a column. Every matching rule and auto-updating formula is pre-built inside the Excel template.
 
-Each additional loan only requires replacing the borrower inputs.
+Download the workbook to your computer, paste your own deal figures into the input cells, and view clean underwriting decisions in under one minute. Even a beginner with zero spreadsheet modeling experience gets structured commercial analysis immediately, freeing busy-season hours for broker calls, borrower negotiations, and deal closings.
 
-There is no need to rebuild formulas, modify calculations, or redesign reports. The pricing engine remains reusable across Bridge Loans, Fix-and-Flip Loans, Heavy Rehab, Light Rehab, and Construction financing scenarios.
+**Why lending teams move from the free browser trial to the paid offline Excel workbook:**
 
-**Set the underwriting parameters once. Enter the loan scenario. Review the pricing. Generate the quote. Repeat whenever another loan needs to be evaluated.**
+- **One-time purchase, unlimited reuse:** Pay once instead of paying recurring monthly SaaS subscriptions for enterprise Loan Origination Systems (LOS) or cloud pricing engines. Replace the inputs and reuse the same fixed workflow for every Bridge, Fix-and-Flip, Rehab, and Construction deal.
+- **100% local data privacy:** Save and run the file offline on your own machine. Sensitive borrower financials, internal buy rates, and lender spread floors never sit on third-party cloud servers.
+- **Risk-free guarantee:** The browser version is free to test online. The downloadable Excel workbook is a paid product backed by a **30-day, no-questions-asked money-back guarantee**.
 
-*   👉 [*Download the Excel Template for Offline Use*](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
+> **Ready to standardize your underwriting workflow offline?**  
+> [Download the Reusable Offline RTL Loan Sizer & Pricer Excel Template (One-Time Purchase, 30-Day Money-Back Guarantee)](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
 
 ---
 
-## Why I Built This
+## The Business Logic & Methodology: How Automated RTL Underwriting Prevents Hidden Decision Blind Spots
 
-Residential Transitional Loan underwriting often appears straightforward because experienced lenders already know the major ratios they want to approve. In reality, most pricing mistakes happen long before a loan reaches committee review.
+Most pricing errors in private real estate lending happen long before a loan file reaches credit committee. Even experienced originators make costly quoting mistakes when they calculate ratios one at a time in disconnected sheets. For newcomers to hard money or fix-and-flip lending, four specific commercial blind spots quietly kill deals or wipe out lender profit.
 
-The problem is rarely calculating LTV or LTC individually. The problem is evaluating every underwriting rule simultaneously while also protecting lender profitability.
+### 1. The Single-Ratio Blind Spot (Why Passing LTV Can Still Fail Underwriting)
 
-A processor might calculate an acceptable LTV but overlook that the requested note rate no longer satisfies the minimum spread requirement. Another originator may quote an attractive rate that fits borrower expectations but unintentionally prices below the lender's required buy rate. A third transaction may satisfy leverage requirements but still require substantially more borrower cash than expected because prepaid interest and servicing fees reduce available funding.
+**Objective fact:** A fix-and-flip loan that looks safe at 75% As-Is LTV can still breach a 90% LTC cap or a 70% LTARV cap once a large rehab budget is included.  
+**How this model solves it:** The sizing engine calculates LTV, LTC, LTP, and LTARV in parallel and enforces the lowest allowable loan amount across all four ratios. You see the exact binding constraint before quoting terms to a borrower.
 
-Instead of relying on multiple disconnected spreadsheets or manually checking underwriting guidelines one rule at a time, I wanted a reusable analytical framework that evaluates every major underwriting constraint together.
+### 2. The Rate-vs-Spread Blind Spot (Winning a Deal While Losing Margin)
 
-For example:
+**Objective fact:** Matching a competitor's note rate to win a borrower often pushes the loan below your internal buy rate or minimum yield spread after FICO and leverage price hits are applied.  
+**How this model solves it:** Every quoted note rate is automatically tested against your centralized buy-rate matrix and minimum spread requirement. If a deal violates your profit floor, the sheet flags it immediately so you can reprice or add origination points before issuing a term sheet.
 
-**Before**
+### 3. The Cash-to-Close Blind Spot (Deals Dying Days Before Settlement)
 
-- LTV looks acceptable.
-- Borrower receives a verbal quote.
-- Pricing review later discovers insufficient lender spread.
-- Quote must be revised.
-- Borrower confidence decreases.
-- Internal processing time increases.
+**Objective fact:** First-time borrowers and junior processors frequently assume the down payment equals total cash needed. Prepaid interest, origination fees, servicing charges, and liquidity reserve rules reduce net funding proceeds and increase cash required at closing.  
+**How this model solves it:** The workbook computes net loan funding, upfront deductions, and total borrower cash-to-close on day one. Borrowers know their real cash requirement immediately, reducing late-stage fallout.
 
-**After**
+### 4. The Pricing-Leakage Blind Spot (Exposing Proprietary Buy Rates)
 
-The workbook evaluates leverage, pricing, spread protection, settlement costs, liquidity requirements, and eligibility together before the quote is issued. The lender immediately knows whether the scenario passes, requires an exception, or should not proceed.
+**Objective fact:** Handing an unlocked pricing spreadsheet to external brokers or junior reps exposes your wholesale buy rates, capital costs, and internal margin rules.  
+**How this model solves it:** Pricing tables and spread formulas live on a dedicated assumptions tab that can be locked and hidden in originator-facing versions, keeping sensitive economics private while preserving fast self-service quoting.
 
-This workbook is not simply a calculator. It packages underwriting reasoning into a repeatable decision-support process that reduces inconsistent loan structuring across different users.
+### Real-World Workflow Shift: Before vs. After
 
----
+**Before (Manual Quoting)**
+1. Originator checks As-Is LTV in a quick calculator and sends a verbal quote to the borrower.
+2. Underwriting review later catches an LTARV breach and a spread shortfall below the lender's buy rate.
+3. The team revises the quote downward and increases required borrower cash-to-close.
+4. Borrower trust drops, closing delays pile up, and internal staff spend hours reworking one file.
 
-## Common RTL Lending Problems This Solves
-
-| Problem | Without This Tool | With This Tool |
-|------------|-----------------|----------------|
-| Loan approved using only one leverage ratio | Important underwriting limits may be overlooked until final review | All major leverage ratios are evaluated simultaneously before quoting |
-| Manual pricing | Different originators quote different rates for identical borrowers | Pricing is generated consistently using centralized pricing rules |
-| Hidden profitability erosion | Loans appear acceptable but violate minimum margin requirements | Spread validation immediately flags pricing below lender requirements |
-| Unexpected borrower cash requirement | Settlement costs discovered late in closing | Cash-to-close and net funding are calculated during initial structuring |
-| Loan exceptions identified too late | Multiple revisions delay underwriting | Exception scenarios are highlighted immediately for management review |
-| Internal pricing logic exposed | Sensitive buy-rate calculations become visible to external users | Internal pricing sheets remain protected in originator-facing versions |
+**After (Automated RTL Loan Sizer Workflow)**
+1. Originator enters property numbers, rehab budget, and borrower FICO once.
+2. The workbook checks leverage caps, spread floor, settlement deductions, and liquidity reserves simultaneously in seconds.
+3. The team immediately knows whether the deal passes cleanly, requires a management exception, or should be declined before sending a quote.
 
 ---
 
-## Who This Is For
+## Manual Hard Money Quoting vs. Automated RTL Loan Sizer: Operational Comparison
 
-This workbook is designed for professionals involved in Residential Transitional Lending, including:
-
-- Private lenders
-- Hard money lenders
-- Loan originators
-- Loan processors
-- Underwriters
-- Capital markets teams
-- Small lending firms seeking standardized loan pricing
-- Credit teams evaluating Bridge, Rehab, and Construction loans
-
-It is particularly useful for organizations that need a lightweight underwriting workflow without implementing a full Loan Origination System (LOS).
-
-This is **not** intended to replace enterprise lending platforms, servicing software, or compliance management systems.
-
-No spreadsheet expertise is required. Open the browser version or Excel workbook, enter the loan information, and begin evaluating loan scenarios immediately.
+| Residential Transitional Lending Bottleneck | Ad-Hoc Spreadsheet & Manual Quoting Risk | Standardized RTL Loan Sizer Workflow |
+| :--- | :--- | :--- |
+| **Single-ratio loan sizing** | Approving on LTV alone misses LTC, LTP, or LTARV guideline caps until credit committee review | Evaluates LTV, LTC, LTP, and LTARV simultaneously and enforces the binding loan cap before quoting |
+| **Manual rate sheet lookups** | Different loan officers quote conflicting rates and points for identical FICO and leverage profiles | Pulls uniform rates and adjustments from one centralized FICO and leverage pricing grid |
+| **Unnoticed margin compression** | Loans pass leverage checks while quietly pricing below internal buy rate and yield spread floors | Built-in spread validation flags any quote below minimum lender margin requirements immediately |
+| **Unexpected borrower cash-to-close** | Prepaid interest, origination points, and servicing deductions surface late near the closing table | Calculates net funding proceeds, settlement deductions, and cash-to-close during initial structuring |
+| **Late underwriting exception discovery** | Multiple term sheet revisions stall underwriting pipelines and frustrate brokers | Highlights policy exceptions right away for structured management sign-off |
+| **Exposed wholesale pricing logic** | Shared manual workbooks leak internal buy rates and profit margins to outside parties | Separates protected pricing assumptions from originator input and quote summary sheets |
 
 ---
 
-## About
+## Who Uses This RTL Loan Calculator: Role-Based Use Cases for Private Lenders, Brokers, and Hard Money Teams
 
-I build lightweight analytical tools for situations where too many operational variables must be considered at the same time. Rather than replacing enterprise software, these workbooks package practical decision-making into reusable frameworks that help teams reach consistent conclusions with less manual effort.
+This tool fits specific day-to-day workflows across the residential transitional lending industry, without requiring spreadsheet modeling skills or a heavy enterprise software rollout:
 
-The **RTL Loan Sizer / Pricer** follows that philosophy by bringing underwriting rules, pricing logic, leverage validation, settlement calculations, and quote generation together in one structured workflow. The central question is always the same: **What information needs to be visible in one place to make the next lending decision confidently?**
+| Role / Job Title | Primary Search & Workflow Need | How They Use RTL Loan Sizer & Pricer |
+| :--- | :--- | :--- |
+| **Hard Money & Private Money Lenders** | Hard money loan pricing spreadsheet & deal sizing engine | Enforce consistent LTV/LTC/LTARV caps and protect minimum lender spread across every quote |
+| **Mortgage Brokers & Loan Originators (LOs)** | Fix-and-flip loan quote generator & borrower pre-qualification tool | Turn raw property numbers and rehab budgets into clean borrower term sheets in under one minute |
+| **Loan Processors & Transaction Coordinators** | Bridge loan cash-to-close & net funding calculator | Verify prepaid interest, servicing fees, borrower liquidity, and net proceeds before ordering closing docs |
+| **Credit Analysts & Underwriters** | RTL loan eligibility checker & exception screening template | Audit multi-ratio leverage limits and flag out-of-box deals prior to credit committee review |
+| **Capital Markets & Secondary Desk Teams** | Buy-rate validation & lender yield spread model | Maintain centralized pricing grids and confirm loan-level pricing clears secondary sale thresholds |
+| **Small Private Lending Firms & Boutique Debt Funds** | Lightweight LOS alternative Excel workbook | Standardize Bridge, Light Rehab, Heavy Rehab, and Ground-Up Construction underwriting without enterprise SaaS fees |
+| **Real Estate Investors & House Flippers** | Beginner-friendly hard money deal analyzer | Estimate maximum loan proceeds and total cash required at closing before submitting a loan application |
+
+**Scope note:** This workbook is built specifically for front-end loan sizing, eligibility validation, pricing checks, and quote generation. Loan servicing, draw disbursement accounting, and statutory compliance management remain in dedicated servicing and compliance platforms.
+
+---
+
+## Frequently Asked Questions (RTL Sizing & Excel Template)
+
+<details>
+<summary><strong>What is the difference between LTV, LTC, LTP, and LTARV in a Residential Transitional Loan?</strong></summary>
+
+- **LTV (Loan-to-Value):** Loan amount divided by the property's current As-Is appraised value.
+- **LTP (Loan-to-Purchase):** Initial acquisition advance divided by the contract purchase price.
+- **LTC (Loan-to-Cost):** Total loan amount divided by total project cost (purchase price plus rehab budget).
+- **LTARV (Loan-to-After-Repair-Value):** Total loan amount divided by the projected After Repair Value (ARV) once renovations finish.
+
+Because hard money lenders cap all four ratios simultaneously, the lowest resulting loan amount sets your maximum eligible loan size.
+</details>
+
+<details>
+<summary><strong>Do I need advanced Excel skills to use the offline template?</strong></summary>
+
+No. All pricing grids, leverage formulas, and conditional checks are pre-configured. You only paste deal inputs into the designated cells on the **Inputs** tab and read your results on the **Quote Summary** tab.
+</details>
+
+<details>
+<summary><strong>What is the difference between the free browser version and the paid Excel version?</strong></summary>
+
+The [free browser-based RTL Loan Calculator](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/) lets you test the underwriting logic online immediately with no account required. The [paid offline Excel workbook](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan) gives you a permanent local file that you can customize with your own pricing grids, save per deal, reuse indefinitely for a one-time payment (with a 30-day money-back guarantee), and keep completely off third-party cloud servers.
+</details>
+
+---
+
+## About Theseus Workshop
+
+**Theseus Workshop** builds lightweight, reusable analytical workbooks for business and lending decisions where too many financial variables interact at once. Every template packages proven underwriting and commercial analysis logic into a clean offline Excel workflow so small teams and solo operators can reach consistent, defensible decisions in minutes.
+
+The **RTL Loan Sizer & Pricer** puts underwriting limits, buy-rate pricing rules, leverage validation, settlement deductions, and client quote outputs on one screen so you always know whether a deal works before committing capital.
+
+Looking for more ready-to-use offline Excel financial models, pricing engines, and operational decision-support tools?  
+[Explore the Full Catalog of Offline Business & Finance Excel Templates at Theseus Workshop (theseusworkshop.com)](https://www.theseusworkshop.com)
+
 ## Technical Details
 
 <details>
