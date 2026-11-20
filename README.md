@@ -32,6 +32,14 @@ Private lending deals stall when leverage limits, credit-tier rate adjustments, 
 | **Hidden margin erosion below buy rate** | Flags any requested note rate that drops below your internal yield spread floor immediately | **Lender buy rate**, **minimum spread validation**, and net margin protection status |
 | **Slow manual quote assembly during peak volume** | Consolidates inputs, underwriting rules, and closing math into one formatted client-ready view | Ready-to-send **Quote Summary** and preliminary loan term breakdown |
 
+## Spreadsheet Preview
+
+Want to take a closer look before downloading? You can preview the spreadsheet in Google Sheets to explore its layout, structure, and calculation logic.
+
+**[View Spreadsheet Preview on Google Sheets](https://docs.google.com/spreadsheets/d/1n-H2iiCJEFqjxEVYOsrszDOUnHgPuGLR/edit?usp=sharing&ouid=108770714531989318327&rtpof=true&sd=true)**
+
+> **Note on Compatibility:** The Google Sheets preview may display occasional `#NAME?` errors or formula warnings due to differences between Google Sheets and Microsoft Excel formula compatibility. These are preview-only compatibility issues and do not affect the functionality of the original Excel workbook. For the intended formula behavior and full functionality, please download and open the `.xlsx` file in Microsoft Excel.
+
 ---
 
 ## Quick Start Guide: Size and Price a Fix-and-Flip or Bridge Loan in 4 Steps
