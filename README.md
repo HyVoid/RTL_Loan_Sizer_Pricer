@@ -40,6 +40,19 @@ Want to take a closer look before downloading? You can preview the spreadsheet i
 
 > **Note on Compatibility:** The Google Sheets preview may display occasional `#NAME?` errors or formula warnings due to differences between Google Sheets and Microsoft Excel formula compatibility. These are preview-only compatibility issues and do not affect the functionality of the original Excel workbook. For the intended formula behavior and full functionality, please download and open the `.xlsx` file in Microsoft Excel.
 
+
+## Questions, Feedback & Product Updates
+
+This toolkit is designed around practical residential transitional loan sizing, leverage constraints and lender yield-spread pricing workflows. Feedback helps identify unclear assumptions, missing scenarios, calculation issues, and improvements to the decision process.
+
+- **Questions & workflow fit:** [Ask about loan program selection, LTV/LTC/LTP/LTARV sizing, credit-tier pricing adjustments, buy-rate and yield-spread checks, origination points, prepaid interest, servicing fees, rehab holdbacks, or borrower cash-to-close](https://github.com/HyVoid/business-decision-toolbox/discussions/categories/questions).
+- **Ideas & improvements:** [Suggest additional loan programs, leverage constraints, credit/pricing tiers, closing-cost items, underwriting exception rules, or quote-summary outputs](https://github.com/HyVoid/business-decision-toolbox/discussions/categories/ideas).
+- **Report a technical problem:** [Open the RTL_Loan_Sizer_Pricer issue form](https://github.com/HyVoid/RTL_Loan_Sizer_Pricer/issues/new?template=bug-report.yml).
+- **Product updates:** [Follow maintenance and improvement notes](https://github.com/HyVoid/business-decision-toolbox/discussions/categories/product-updates).
+
+Do not post borrower names, addresses, dates of birth, Social Security or tax IDs, credit reports, bank statements, personal financial statements, property documents, lender buy rates, internal pricing grids, or live loan files. Use synthetic borrower/deal IDs and fictional values. Public issues are not a secure underwriting channel.
+Use the smallest reproducible example possible. Include the relevant worksheet, input field, date or scenario, and expected versus actual result. Browser demos and spreadsheet previews should be described separately from the downloadable Excel workbook when reporting an environment-specific issue.
+
 ---
 
 ## Quick Start Guide: Size and Price a Fix-and-Flip or Bridge Loan in 4 Steps
