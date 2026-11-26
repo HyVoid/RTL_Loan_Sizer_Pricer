@@ -1,0 +1,44 @@
+name: "💡 Request a Lending Program, Pricing Rule, or New Finance Toolkit"
+description: "Need DSCR rental loans, Dutch vs. Non-Dutch rehab interest, draw schedules, or another lending Excel tool?"
+title: "[Request] "
+labels: ["enhancement", "product-idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tell us what private lending, brokering, or hard-money underwriting bottleneck you want automated cleanly in Excel. Your feedback directly shapes updates at **Theseus Workshop**.
+
+  - type: dropdown
+    id: request_type
+    attributes:
+      label: "What are you requesting?"
+      options:
+        - "Add a loan program or rule to RTL Loan Sizer (e.g., DSCR 30-Yr Rental, Dutch vs. Non-Dutch Interest, Broker YSP)"
+        - "Add a closing-cost or rehab draw schedule feature"
+        - "Build a brand-new plug-and-play Excel toolkit for another lending/real estate workflow"
+    validations:
+      required: true
+
+  - type: input
+    id: user_role
+    attributes:
+      label: "Your role in the deal"
+      placeholder: "e.g., Mortgage broker, hard money lender, loan processor, house flipper, credit analyst..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: workflow_pain
+    attributes:
+      label: "What specific sizing, pricing, or quoting problem are you trying to solve?"
+      placeholder: "e.g., Comparing Dutch vs. Drawn rehab interest holdbacks and adding broker origination points to the quote..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: privacy_check
+    attributes:
+      label: "Strict Privacy & Confidentiality Check (Required)"
+      options:
+        - label: "I confirm this post contains NO real borrower names, SSNs, property addresses, credit reports, or proprietary lender buy-rate grids."
+          required: true
