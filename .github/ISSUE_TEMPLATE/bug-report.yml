@@ -1,119 +1,50 @@
-name: Workbook / Tool Issue
-description: Report a reproducible calculation, input, import, compatibility, browser-tool, or documentation problem.
-title: '[Bug]: '
+name: "🐞 Report a Formula, Lookup, or Web Calculator Bug"
+description: "Report a reproducible calculation error, XLOOKUP issue, or browser calculator bug."
+title: "[Bug] "
+labels: ["bug"]
 body:
-- type: markdown
-  attributes:
-    value: 'Use this form only for a reproducible technical issue. For usage questions or feature suggestions, use
-      the [Theseus Workshop Discussions](https://github.com/HyVoid/business-decision-toolbox/discussions) instead.
-
-
-      Do not post borrower names, addresses, dates of birth, Social Security or tax IDs, credit reports, bank statements,
-      personal financial statements, property documents, lender buy rates, internal pricing grids, or live loan
-      files. Use synthetic borrower/deal IDs and fictional values. Public issues are not a secure underwriting channel.
-
-
-      Use a synthetic deal ID and fictional property/borrower figures. Specify the loan program, purchase price,
-      as-is and after-repair values, project cost, relevant leverage limits, credit/pricing tier, fees or holdback,
-      and expected versus actual sizing or pricing output. Do not reveal proprietary buy rates or live borrower
-      details.'
-- type: dropdown
-  id: problem_area
-  attributes:
-    label: Which area is affected?
-    options:
-    - Loan program / Bridge / Light Rehab / Heavy Rehab / Ground-Up
-    - LTV / LTC / LTP / LTARV constraint calculation
-    - Purchase price / as-is value / after-repair value / project cost inputs
-    - Credit score or borrower-experience pricing tier
-    - Buy rate / note rate / minimum yield-spread floor
-    - Origination points / prepaid interest / servicing fees
-    - Rehab holdback / net funding proceeds
-    - Borrower cash-to-close / liquidity reserve
-    - Eligibility status / exception or decline logic
-    - Quote summary / browser calculator behaviour
-    - Excel formula / calculation issue
-    - Compatibility / documentation
-    - Other
-  validations:
-    required: true
-- type: dropdown
-  id: environment
-  attributes:
-    label: Where did this happen?
-    options:
-    - Microsoft Excel for Windows
-    - Microsoft Excel for Mac
-    - Excel for the web
-    - Free browser application / calculator
-    - Google Sheets preview
-    - Other / not sure
-  validations:
-    required: true
-- type: input
-  id: version
-  attributes:
-    label: Excel version, browser, or tool version
-    description: Optional. Include the Excel build or browser/version and the date tested, if known.
-    placeholder: Microsoft 365 desktop / Excel 2024 / browser and test date
-  validations:
-    required: false
-- type: textarea
-  id: summary
-  attributes:
-    label: What happened?
-    description: Use a synthetic deal ID and fictional property/borrower figures. Specify the loan program, purchase
-      price, as-is and after-repair values, project cost, relevant leverage limits, credit/pricing tier, fees or
-      holdback, and expected versus actual sizing or pricing output. Do not reveal proprietary buy rates or live
-      borrower details.
-    placeholder: When I enter the synthetic example...
-  validations:
-    required: true
-- type: textarea
-  id: expected_result
-  attributes:
-    label: What did you expect to happen?
-    placeholder: I expected the result or status to...
-  validations:
-    required: true
-- type: textarea
-  id: actual_result
-  attributes:
-    label: What happened instead?
-    description: Include the displayed output, warning, error message, or unexpected behaviour. Remove all confidential
-      information.
-    placeholder: Instead, the tool displays...
-  validations:
-    required: true
-- type: textarea
-  id: reproduction_steps
-  attributes:
-    label: Steps to reproduce
-    description: List the smallest repeatable sequence. Include the worksheet, page, or calculation stage if applicable.
-    placeholder: '1. Open the workbook or browser tool...
-
-      2. Enter synthetic sample values...
-
-      3. Review the affected output...'
-  validations:
-    required: false
-- type: textarea
-  id: safe_example
-  attributes:
-    label: Synthetic example / affected cell or field
-    description: Optional. Include fictitious identifiers, values, units, dates, or column names. Do not attach
-      original source files.
-    placeholder: 'Synthetic ID: ... | Input: ... | Expected: ... | Actual: ...'
-  validations:
-    required: false
-- type: checkboxes
-  id: privacy_check
-  attributes:
-    label: Public issue and data-safety confirmation
-    options:
-    - label: I have used synthetic or properly anonymized examples and removed personal identifiers, customer or
-        supplier data, confidential commercial or engineering information, financial records, credentials, and other
-        sensitive details.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: "Where did the issue occur?"
+      options:
+        - "Offline Excel Workbook (.xlsx) — Microsoft 365 / Excel 2021+"
+        - "Offline Excel Workbook (.xlsx) — Older Excel Version"
+        - "Free Browser Calculator (GitHub Pages)"
+        - "Google Sheets Preview"
+    validations:
       required: true
-    - label: I understand this is a public GitHub issue, not a private support channel.
+
+  - type: input
+    id: affected_tab
+    attributes:
+      label: "Affected worksheet or output field"
+      placeholder: "e.g., 04_Calc_Engine Buy Rate lookup / 05_Quote_Summary Cash-to-Close"
+    validations:
       required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Expected vs. actual result"
+      description: "Explain what result you expected versus what appeared."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Synthetic steps to reproduce (FAKE borrower & deal values only)"
+      placeholder: |
+        1. Select Program = Heavy Rehab, FICO = 720
+        2. Enter Purchase = $300,000, Rehab = $70,000, ARV = $465,000...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: privacy_check
+    attributes:
+      label: "Strict Privacy Confirmation (Required)"
+      options:
+        - label: "I have used fictional deal numbers only—NO real borrowers, addresses, credit reports, or live lender buy rates."
+          required: true
