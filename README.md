@@ -1,800 +1,316 @@
 [ 🌐 عربي ](README.ar.md) | [ 🇩🇪 Deutsch ](README.de.md) | [ 🇫🇷 Français ](README.fr.md) | [ 🇳🇱 Nederlands ](README.nl.md) | [ 🇪🇸 Español ](README.sp.md) | [ 🇬🇧 English ](README.md)
 
-# RTL Loan Sizer & Pricer: Free Residential Transitional Loan Calculator & Fix-and-Flip Excel Underwriting Template
-<img width="1245" height="1209" alt="image" src="https://github.com/user-attachments/assets/856c2ddf-16a5-4212-a162-b3e82ab67dcc" />
+# RTL Loan Sizer & Pricer: Fix-and-Flip, Bridge & Construction Loan Calculator Excel Template
 
+<img width="1245" height="1209" alt="RTL Loan Sizer and Pricer Excel Dashboard Preview" src="https://github.com/user-attachments/assets/856c2ddf-16a5-4212-a162-b3e82ab67dcc" />
 
-![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
-![Platform: Browser Web App and Offline Excel Workbook](https://img.shields.io/badge/Platform-Browser%20%7C%20Excel-success)
-![Category: RTL Underwriting and Loan Pricing Tool](https://img.shields.io/badge/Tool-Decision%20Support-orange)
-![Release Status: Production Stable](https://img.shields.io/badge/Version-Stable-brightgreen)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](#license)
+![Platform](https://img.shields.io/badge/Platform-Free%20Web%20App%20%2B%20Excel%20.XLSX-2ea44f.svg)
+![Loan Types](https://img.shields.io/badge/Programs-Bridge%20%7C%20Rehab%20%7C%20Construction-3b82f6.svg)
+![Automation](https://img.shields.io/badge/Formulas-100%25%20Automated%20%7C%20No%20Macros-brightgreen.svg)
 
-**RTL Loan Sizer & Pricer** is a ready-to-use **Residential Transitional Loan (RTL) calculator**, **fix-and-flip loan pricing engine**, and **hard money underwriting Excel template**. Use it to size Bridge, Light Rehab, Heavy Rehab, and Ground-Up Construction loans, validate LTV, LTC, LTP, and LTARV limits, verify lender yield spread against your buy rate, and calculate borrower cash-to-close in under one minute. Test the browser tool free online with no signup, or buy the reusable offline Excel workbook once with a 30-day, no-questions-asked money-back guarantee.
-
-> **Free Online Tool (Try Immediately in Your Browser)**  
-> [Launch the Free Browser-Based RTL Loan Calculator (Instant Fix-and-Flip & Bridge Loan Sizer)](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/)
+> **Stop quoting deals that fail underwriting—and stop getting blindsided by last-minute Cash-to-Close surprises.**
 >
-> **Reusable Offline Spreadsheet (One-Time Purchase, 30-Day Money-Back Guarantee)**  
-> [Get the Reusable Offline RTL Loan Sizer & Pricer Excel Template on Theseus Workshop](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
+> **RTL Loan Sizer & Pricer** is a plug-and-play **Residential Transitional Loan (RTL) calculator**, **fix-and-flip loan pricing engine**, and **hard money underwriting Excel template**. Paste your property value, rehab budget, and borrower FICO to simultaneously validate **LTV, LTC, LTP, and LTARV** caps across **Bridge, Light Rehab, Heavy Rehab, and Ground-Up Construction** loans—check your **lender spread against buy rate**, and calculate true **Net Funding & Borrower Cash-to-Close** in under 60 seconds.
+
+### Try Free in Your Browser — Or Own the Private Offline Excel Engine Forever
+
+Test a live scenario right now in your browser, inspect all 5 tabs in Google Sheets, or unlock the reusable **100% offline Excel workbook** with a **one-time purchase** (zero monthly LOS subscriptions, backed by a **30-day, no-questions-asked money-back guarantee**):
+
+- 🌐 **[Launch the Free Browser-Based RTL Loan Calculator](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/)**
+  No signup. No installation. Run an instant fix-and-flip, bridge, or rehab loan sizing check right in your browser.
+- 📥 **[Get the Reusable Offline RTL Loan Sizer & Pricer Excel Template (.XLSX) — One-Time Purchase](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)**
+  Customize your own FICO/leverage buy-rate grids, protect confidential pricing rules offline, save unlimited deal quotes, and print client-ready term sheets. *30-day money-back guarantee.*
+- 👀 **[Inspect the 5-Tab Spreadsheet Layout on Google Sheets](https://docs.google.com/spreadsheets/d/1n-H2iiCJEFqjxEVYOsrszDOUnHgPuGLR/edit?usp=sharing&ouid=108770714531989318327&rtpof=true&sd=true)**
+  Preview every worksheet, dropdown validation rule, and quote output before buying. *(Note: Google Sheets preview may display occasional `#NAME?` compatibility warnings that do not occur when opened in Microsoft Excel.)*
+
+> 💡 *Screening a residential land subdivision or townhouse project before approaching a hard money lender? Check the land and build profit first with our **[Free ($0+) Real Estate Development Deal Screening Tool](https://github.com/HyVoid/real-estate-development-feasibility-excel)**, then bring your `PASS` deals here to size your bridge/construction loan and verify exact Cash-to-Close.*
 
 ---
 
-## Residential Transitional Loan Underwriting Pain Points & Automated Solutions
+## Free Browser Calculator vs. Full Offline Excel Workbook
 
-Private lending deals stall when leverage limits, credit-tier rate adjustments, and closing deductions are checked in separate spreadsheets. This RTL underwriting tool maps each common calculation gap directly to automated outputs:
+Use the free web app to test the underwriting math on the spot. Upgrade to the offline `.xlsx` workbook when you want custom pricing grids, complete borrower/rate privacy, and a permanent quoting engine:
 
-| Hard Money & RTL Lending Pain Point | Automated Solution in This RTL Loan Sizer | Key Underwriting Metrics & Outputs Tracked |
+| Capability | Free Browser Calculator | Full Offline Excel Workbook (.XLSX) |
 | :--- | :--- | :--- |
-| **Quoting ineligible deals before credit review** | Checks every deal automatically against your configured program caps before a term sheet goes out | Pass / Exception / Decline eligibility status across Bridge, Rehab, and Construction programs |
-| **Calculating only one leverage ratio by hand** | Evaluates all four residential transitional loan sizing constraints simultaneously and binds the loan to the strictest limit | **LTV** (Loan-to-Value), **LTC** (Loan-to-Cost), **LTP** (Loan-to-Purchase), and **LTARV** (Loan-to-After-Repair-Value) |
-| **Late-stage borrower cash-to-close surprises** | Deducts origination points, prepaid interest, and servicing fees upfront during initial deal sizing | **Net funding proceeds**, total **cash-to-close**, rehab holdback structure, and liquidity reserve check |
-| **Inconsistent rates across loan originators** | Pulls pricing adjustments from one centralized rate matrix tied to credit score and leverage tiers | **FICO tier pricing**, borrower experience adjustments, and standardized note rate output |
-| **Hidden margin erosion below buy rate** | Flags any requested note rate that drops below your internal yield spread floor immediately | **Lender buy rate**, **minimum spread validation**, and net margin protection status |
-| **Slow manual quote assembly during peak volume** | Consolidates inputs, underwriting rules, and closing math into one formatted client-ready view | Ready-to-send **Quote Summary** and preliminary loan term breakdown |
-
-## Spreadsheet Preview
-
-Want to take a closer look before downloading? You can preview the spreadsheet in Google Sheets to explore its layout, structure, and calculation logic.
-
-**[View Spreadsheet Preview on Google Sheets](https://docs.google.com/spreadsheets/d/1n-H2iiCJEFqjxEVYOsrszDOUnHgPuGLR/edit?usp=sharing&ouid=108770714531989318327&rtpof=true&sd=true)**
-
-> **Note on Compatibility:** The Google Sheets preview may display occasional `#NAME?` errors or formula warnings due to differences between Google Sheets and Microsoft Excel formula compatibility. These are preview-only compatibility issues and do not affect the functionality of the original Excel workbook. For the intended formula behavior and full functionality, please download and open the `.xlsx` file in Microsoft Excel.
-
-
-## Questions, Feedback & Product Updates
-
-This toolkit is designed around practical residential transitional loan sizing, leverage constraints and lender yield-spread pricing workflows. Feedback helps identify unclear assumptions, missing scenarios, calculation issues, and improvements to the decision process.
-
-- **Questions & workflow fit:** [Ask about loan program selection, LTV/LTC/LTP/LTARV sizing, credit-tier pricing adjustments, buy-rate and yield-spread checks, origination points, prepaid interest, servicing fees, rehab holdbacks, or borrower cash-to-close](https://github.com/HyVoid/business-decision-toolbox/discussions/categories/questions).
-- **Ideas & improvements:** [Suggest additional loan programs, leverage constraints, credit/pricing tiers, closing-cost items, underwriting exception rules, or quote-summary outputs](https://github.com/HyVoid/business-decision-toolbox/discussions/categories/ideas).
-- **Report a technical problem:** [Open the RTL_Loan_Sizer_Pricer issue form](https://github.com/HyVoid/RTL_Loan_Sizer_Pricer/issues/new?template=bug-report.yml).
-- **Product updates:** [Follow maintenance and improvement notes](https://github.com/HyVoid/business-decision-toolbox/discussions/categories/product-updates).
-
-Do not post borrower names, addresses, dates of birth, Social Security or tax IDs, credit reports, bank statements, personal financial statements, property documents, lender buy rates, internal pricing grids, or live loan files. Use synthetic borrower/deal IDs and fictional values. Public issues are not a secure underwriting channel.
-Use the smallest reproducible example possible. Include the relevant worksheet, input field, date or scenario, and expected versus actual result. Browser demos and spreadsheet previews should be described separately from the downloadable Excel workbook when reporting an environment-specific issue.
+| **60-Second Bridge / Flip / Rehab Loan Sizing** | Included (Instant) | Included (Copy-Paste Workflow) |
+| **Simultaneous LTV, LTC, LTP & LTARV Caps** | Standard Rules | **100% Editable Program Caps (Bridge, Light/Heavy Rehab, Build)** |
+| **Custom FICO & Experience Buy-Rate Matrix** | Preset Demo Grid | **Fully Customizable Pricing Grid & Spread Floors** |
+| **100% Local Data Privacy (Borrowers & Buy Rates)** | Browser Session Only | **Saved Privately Offline — Zero Third-Party Cloud Exposure** |
+| **Hidden Pricing Protection (Originator Mode)** | Not Included | **Internal Admin vs. Protected Originator Distribution Setup** |
+| **Net Funding, Prepaid Interest & Cash-to-Close** | Quick Preview | **Full Settlement Breakdown + Liquidity Shortfall Check** |
+| **Printable Client-Ready Quote Summary** | Screen View | **Formatted `05_Quote_Summary` Term Sheet + Saved Deal Files** |
+| **Pricing & Guarantee** | 100% Free | **One-Time Payment (No LOS SaaS) + 30-Day Money-Back Guarantee** |
 
 ---
 
-## Quick Start Guide: Size and Price a Fix-and-Flip or Bridge Loan in 4 Steps
+## 6 Costly Hard Money & RTL Quoting Mistakes Solved Automatically
 
-You can run a test scenario right now in the [Free Online RTL Loan Sizer Web App](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/), then move your daily pipeline into the offline Excel workbook once you confirm it fits your lending guidelines.
+Whether you are a loan officer pricing borrower quotes, a boutique private lender protecting spread, or a house flipper checking how much cash you actually need at closing, this workbook eliminates guesswork:
 
-### Step 1. Set Your Underwriting Rules and Pricing Grid Once
-
-Configure your lending parameters on the **Pricing & Assumptions** worksheet. Enter your maximum leverage limits (LTV, LTC, LTP, LTARV), FICO pricing grids, origination points, servicing fees, minimum lender spread requirements, and supported loan programs. After initial setup, you only update this tab when your capital partner or credit committee changes guidelines.
-
-### Step 2. Paste Borrower and Property Deal Numbers into Inputs
-
-Open the **Inputs** worksheet and enter the deal facts:
-
-- Purchase price and As-Is property value
-- Rehabilitation / construction budget and After Repair Value (ARV)
-- Requested loan amount and loan term
-- Borrower FICO score, prior flip experience, and verified liquid assets
-- Requested note rate and selected loan program (Bridge, Light Rehab, Heavy Rehab, or Construction)
-
-Built-in dropdown menus and data validation block invalid entries. Conditional formatting grays out fields that do not apply to the chosen loan program.
-
-### Step 3. Read Automated Underwriting, Pricing, and Cash-to-Close Results
-
-Open the **Quote Summary** worksheet to inspect the complete deal breakdown in one place:
-
-- Loan eligibility verdict and exception flags
-- Binding leverage metrics (LTV, LTC, LTP, and LTARV)
-- Rate validation against buy rate and minimum spread rules
-- Prepaid interest, settlement estimates, net funding proceeds, and borrower cash-to-close
-
-### Step 4. Switch to the Reusable Offline Excel Workbook for Daily Pipeline Deals
-
-Residential transitional loan pricing involves multi-layered underwriting logic, yet you never need to write a single formula, troubleshoot broken cell references, or double-click to drag equations down a column. Every matching rule and auto-updating formula is pre-built inside the Excel template.
-
-Download the workbook to your computer, paste your own deal figures into the input cells, and view clean underwriting decisions in under one minute. Even a beginner with zero spreadsheet modeling experience gets structured commercial analysis immediately, freeing busy-season hours for broker calls, borrower negotiations, and deal closings.
-
-**Why lending teams move from the free browser trial to the paid offline Excel workbook:**
-
-- **One-time purchase, unlimited reuse:** Pay once instead of paying recurring monthly SaaS subscriptions for enterprise Loan Origination Systems (LOS) or cloud pricing engines. Replace the inputs and reuse the same fixed workflow for every Bridge, Fix-and-Flip, Rehab, and Construction deal.
-- **100% local data privacy:** Save and run the file offline on your own machine. Sensitive borrower financials, internal buy rates, and lender spread floors never sit on third-party cloud servers.
-- **Risk-free guarantee:** The browser version is free to test online. The downloadable Excel workbook is a paid product backed by a **30-day, no-questions-asked money-back guarantee**.
-
-> **Ready to standardize your underwriting workflow offline?**  
-> [Download the Reusable Offline RTL Loan Sizer & Pricer Excel Template (One-Time Purchase, 30-Day Money-Back Guarantee)](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)
+| Common Lending / Borrowing Pain Point | How This Automated RTL Excel Engine Solves It |
+| :--- | :--- |
+| **Passing LTV while silently failing LTC or LTARV** | **4-Ratio Binding Cap Engine:** Evaluates **LTV, LTC, LTP, and LTARV** simultaneously and flags `PASS`, `EXCEPTION NEEDED`, or `FAIL` before a quote goes out. |
+| **Winning a deal while quietly losing lender margin** | **Instant Buy-Rate & Spread Guardrail:** Compares every quoted note rate against your centralized FICO/leverage buy rate and flags `Below Margin` immediately if it breaches your spread floor. |
+| **Last-minute Cash-to-Close deal fallout** | **Day-1 Net Funding & Liquidity Check:** Deducts origination points, short/prepaid interest, and servicing fees upfront so borrowers see true Cash-to-Close and any liquidity shortfall on Day 1. |
+| **Different brokers quoting conflicting rates** | **Centralized FICO & Experience Grid:** Pulls standardized rates and adjustments from one master rules tab so every quote stays consistent. |
+| **Leaking wholesale buy rates to outside reps** | **Separated Pricing Architecture:** Isolates proprietary buy rates and spread math on an admin-only tab that can be locked and hidden from originator-facing copies. |
+| **Slow manual quote assembly during peak volume** | **1-Click Client Quote Summary:** Consolidates inputs, leverage validation, and settlement math into a clean, ready-to-share preliminary term sheet in under a minute. |
 
 ---
 
-## The Business Logic & Methodology: How Automated RTL Underwriting Prevents Hidden Decision Blind Spots
+## 4 Hidden Blind Spots That Kill Private Lending Deals
 
-Most pricing errors in private real estate lending happen long before a loan file reaches credit committee. Even experienced originators make costly quoting mistakes when they calculate ratios one at a time in disconnected sheets. For newcomers to hard money or fix-and-flip lending, four specific commercial blind spots quietly kill deals or wipe out lender profit.
+Even experienced loan originators and active flippers make expensive mistakes when checking ratios one by one in scattered calculators:
 
-### 1. The Single-Ratio Blind Spot (Why Passing LTV Can Still Fail Underwriting)
-
-**Objective fact:** A fix-and-flip loan that looks safe at 75% As-Is LTV can still breach a 90% LTC cap or a 70% LTARV cap once a large rehab budget is included.  
-**How this model solves it:** The sizing engine calculates LTV, LTC, LTP, and LTARV in parallel and enforces the lowest allowable loan amount across all four ratios. You see the exact binding constraint before quoting terms to a borrower.
-
-### 2. The Rate-vs-Spread Blind Spot (Winning a Deal While Losing Margin)
-
-**Objective fact:** Matching a competitor's note rate to win a borrower often pushes the loan below your internal buy rate or minimum yield spread after FICO and leverage price hits are applied.  
-**How this model solves it:** Every quoted note rate is automatically tested against your centralized buy-rate matrix and minimum spread requirement. If a deal violates your profit floor, the sheet flags it immediately so you can reprice or add origination points before issuing a term sheet.
-
-### 3. The Cash-to-Close Blind Spot (Deals Dying Days Before Settlement)
-
-**Objective fact:** First-time borrowers and junior processors frequently assume the down payment equals total cash needed. Prepaid interest, origination fees, servicing charges, and liquidity reserve rules reduce net funding proceeds and increase cash required at closing.  
-**How this model solves it:** The workbook computes net loan funding, upfront deductions, and total borrower cash-to-close on day one. Borrowers know their real cash requirement immediately, reducing late-stage fallout.
-
-### 4. The Pricing-Leakage Blind Spot (Exposing Proprietary Buy Rates)
-
-**Objective fact:** Handing an unlocked pricing spreadsheet to external brokers or junior reps exposes your wholesale buy rates, capital costs, and internal margin rules.  
-**How this model solves it:** Pricing tables and spread formulas live on a dedicated assumptions tab that can be locked and hidden in originator-facing versions, keeping sensitive economics private while preserving fast self-service quoting.
-
-### Real-World Workflow Shift: Before vs. After
-
-**Before (Manual Quoting)**
-1. Originator checks As-Is LTV in a quick calculator and sends a verbal quote to the borrower.
-2. Underwriting review later catches an LTARV breach and a spread shortfall below the lender's buy rate.
-3. The team revises the quote downward and increases required borrower cash-to-close.
-4. Borrower trust drops, closing delays pile up, and internal staff spend hours reworking one file.
-
-**After (Automated RTL Loan Sizer Workflow)**
-1. Originator enters property numbers, rehab budget, and borrower FICO once.
-2. The workbook checks leverage caps, spread floor, settlement deductions, and liquidity reserves simultaneously in seconds.
-3. The team immediately knows whether the deal passes cleanly, requires a management exception, or should be declined before sending a quote.
+1. **The Single-Ratio Trap (LTV Looks Fine, LTARV Kills the Deal):** A fix-and-flip deal can sit comfortably at **76.2% As-Is LTV** and still breach an **88% LTARV** policy limit once a heavy rehab budget is added. Testing all four leverage caps together catches deal-killers in seconds.
+2. **The Rate-vs-Spread Trap (Winning Volume, Losing Profit):** Dropping a borrower's note rate to **10.00%** against an **8.20%** buy rate leaves only **1.80% spread**—silently breaching a **2.50% minimum spread floor**. Automated validation catches margin erosion *before* the term sheet leaves your desk.
+3. **The Cash-to-Close Trap (Down Payment != Total Cash Needed):** On a **$450,000** loan, **$6,250** in prepaid short interest and **$2,250** in servicing fees drop net funding to **$441,500**—turning an expected gap into **$26,500** actual Cash-to-Close. If the borrower only holds **$18,000** liquid, you spot the **$8,500** shortfall immediately instead of three days before settlement.
+4. **The Pricing-Leakage Trap:** Sharing an unlocked pricing sheet exposes your wholesale capital costs and profit rules. Separating inputs, pricing grids, and client outputs keeps your economics private while letting reps quote fast.
 
 ---
 
-## Manual Hard Money Quoting vs. Automated RTL Loan Sizer: Operational Comparison
+## Quick Start: Size & Price Any Bridge or Rehab Loan in 4 Steps
 
-| Residential Transitional Lending Bottleneck | Ad-Hoc Spreadsheet & Manual Quoting Risk | Standardized RTL Loan Sizer Workflow |
-| :--- | :--- | :--- |
-| **Single-ratio loan sizing** | Approving on LTV alone misses LTC, LTP, or LTARV guideline caps until credit committee review | Evaluates LTV, LTC, LTP, and LTARV simultaneously and enforces the binding loan cap before quoting |
-| **Manual rate sheet lookups** | Different loan officers quote conflicting rates and points for identical FICO and leverage profiles | Pulls uniform rates and adjustments from one centralized FICO and leverage pricing grid |
-| **Unnoticed margin compression** | Loans pass leverage checks while quietly pricing below internal buy rate and yield spread floors | Built-in spread validation flags any quote below minimum lender margin requirements immediately |
-| **Unexpected borrower cash-to-close** | Prepaid interest, origination points, and servicing deductions surface late near the closing table | Calculates net funding proceeds, settlement deductions, and cash-to-close during initial structuring |
-| **Late underwriting exception discovery** | Multiple term sheet revisions stall underwriting pipelines and frustrate brokers | Highlights policy exceptions right away for structured management sign-off |
-| **Exposed wholesale pricing logic** | Shared manual workbooks leak internal buy rates and profit margins to outside parties | Separates protected pricing assumptions from originator input and quote summary sheets |
+No Excel formula writing required. Zero VBA macros. **Zero formula dragging.**
 
----
+1. **Test the Logic Free Online (Optional):** Open the [Free Browser-Based RTL Loan Calculator](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/) to run a quick sanity check in 30 seconds.
+2. **Set Your Lending Rules Once (`03_Pricing_&_Assumptions`):** In the `.xlsx` workbook, enter your maximum leverage limits (LTV, LTC, LTP, LTARV), FICO/experience buy-rate grid, origination points, servicing fees, and minimum spread floor.
+3. **Paste Deal & Borrower Facts (`02_Inputs`):** Enter purchase price, As-Is value, rehab budget, ARV, requested loan amount, loan term, FICO, flip experience, liquid assets, and program type (**Bridge, Light Rehab, Heavy Rehab, or Ground-Up Construction**). Dropdown menus prevent invalid entries and automatically gray out fields that do not apply to Bridge loans.
+4. **Deliver a Clean Quote (`05_Quote_Summary`):** Review the automated `PASS / EXCEPTION NEEDED / FAIL` verdict, binding leverage metrics, spread status, Net Funding, and true Cash-to-Close—ready to save per deal or export as a preliminary term sheet.
 
-## Who Uses This RTL Loan Calculator: Role-Based Use Cases for Private Lenders, Brokers, and Hard Money Teams
-
-This tool fits specific day-to-day workflows across the residential transitional lending industry, without requiring spreadsheet modeling skills or a heavy enterprise software rollout:
-
-| Role / Job Title | Primary Search & Workflow Need | How They Use RTL Loan Sizer & Pricer |
-| :--- | :--- | :--- |
-| **Hard Money & Private Money Lenders** | Hard money loan pricing spreadsheet & deal sizing engine | Enforce consistent LTV/LTC/LTARV caps and protect minimum lender spread across every quote |
-| **Mortgage Brokers & Loan Originators (LOs)** | Fix-and-flip loan quote generator & borrower pre-qualification tool | Turn raw property numbers and rehab budgets into clean borrower term sheets in under one minute |
-| **Loan Processors & Transaction Coordinators** | Bridge loan cash-to-close & net funding calculator | Verify prepaid interest, servicing fees, borrower liquidity, and net proceeds before ordering closing docs |
-| **Credit Analysts & Underwriters** | RTL loan eligibility checker & exception screening template | Audit multi-ratio leverage limits and flag out-of-box deals prior to credit committee review |
-| **Capital Markets & Secondary Desk Teams** | Buy-rate validation & lender yield spread model | Maintain centralized pricing grids and confirm loan-level pricing clears secondary sale thresholds |
-| **Small Private Lending Firms & Boutique Debt Funds** | Lightweight LOS alternative Excel workbook | Standardize Bridge, Light Rehab, Heavy Rehab, and Ground-Up Construction underwriting without enterprise SaaS fees |
-| **Real Estate Investors & House Flippers** | Beginner-friendly hard money deal analyzer | Estimate maximum loan proceeds and total cash required at closing before submitting a loan application |
-
-**Scope note:** This workbook is built specifically for front-end loan sizing, eligibility validation, pricing checks, and quote generation. Loan servicing, draw disbursement accounting, and statutory compliance management remain in dedicated servicing and compliance platforms.
+👉 **[Download the Offline RTL Loan Sizer & Pricer Excel Template (.XLSX) — One-Time Purchase with 30-Day Guarantee](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan)**
 
 ---
 
-## Frequently Asked Questions (RTL Sizing & Excel Template)
+## Who This Toolkit Is Built For
+
+Built for practical lending teams, brokers, and real estate investors who want **instant, consistent deal sizing** without paying recurring enterprise Loan Origination System (LOS) fees:
+
+- **Hard Money & Private Money Lenders / Boutique Debt Funds**: Enforce uniform LTV/LTC/LTP/LTARV rules and protect minimum lender yield spread across every quote—without enterprise SaaS overhead.
+- **Mortgage Brokers & Loan Originators (LOs)**: Turn raw property numbers and rehab budgets into clean, accurate borrower quotes in under 60 seconds.
+- **Loan Processors & Transaction Coordinators**: Audit prepaid interest, origination fees, net funding proceeds, and borrower liquidity reserves before ordering closing docs.
+- **Credit Analysts & Underwriters**: Screen multi-ratio caps and surface `EXCEPTION NEEDED` files early for structured credit review.
+- **House Flippers, Rehabbers & Small Developers**: Reverse-check exactly how much a hard money lender will fund—and your real out-of-pocket Cash-to-Close—*before* signing a purchase contract.
+
+> **Honest Scope Note:** This workbook is built specifically for **front-end loan sizing, eligibility screening, spread validation, and preliminary quote generation**. It is not intended to replace post-closing loan servicing, construction draw disbursement accounting, or statutory compliance software, nor does it constitute lending or legal advice.
+
+---
+
+## Frequently Asked Questions
 
 <details>
-<summary><strong>What is the difference between LTV, LTC, LTP, and LTARV in a Residential Transitional Loan?</strong></summary>
+<summary><strong>What is the difference between LTV, LTC, LTP, and LTARV?</strong></summary>
 
 - **LTV (Loan-to-Value):** Loan amount divided by the property's current As-Is appraised value.
-- **LTP (Loan-to-Purchase):** Initial acquisition advance divided by the contract purchase price.
-- **LTC (Loan-to-Cost):** Total loan amount divided by total project cost (purchase price plus rehab budget).
-- **LTARV (Loan-to-After-Repair-Value):** Total loan amount divided by the projected After Repair Value (ARV) once renovations finish.
+- **LTP (Loan-to-Purchase):** Acquisition advance divided by the contract purchase price.
+- **LTC (Loan-to-Cost):** Total loan amount divided by total project cost (purchase price + rehab budget).
+- **LTARV (Loan-to-After-Repair-Value):** Total loan amount divided by projected After Repair Value (ARV) once renovations finish.
 
-Because hard money lenders cap all four ratios simultaneously, the lowest resulting loan amount sets your maximum eligible loan size.
+Because RTL lenders cap all four ratios simultaneously, the strictest ratio binds the maximum eligible loan size.
 </details>
 
 <details>
-<summary><strong>Do I need advanced Excel skills to use the offline template?</strong></summary>
+<summary><strong>Do I need advanced Excel skills or macros to use the offline template?</strong></summary>
 
-No. All pricing grids, leverage formulas, and conditional checks are pre-configured. You only paste deal inputs into the designated cells on the **Inputs** tab and read your results on the **Quote Summary** tab.
+No. Every lookup grid, leverage cap, and settlement formula is 100% pre-built using native Excel formulas (zero VBA/macros required for daily calculations). Just paste deal numbers into `02_Inputs` and read your results on `05_Quote_Summary`. **Microsoft 365** or **Excel 2021+** is recommended for full native `XLOOKUP` compatibility.
 </details>
 
 <details>
-<summary><strong>What is the difference between the free browser version and the paid Excel version?</strong></summary>
+<summary><strong>Can I hide my wholesale buy rates before sharing this with loan officers?</strong></summary>
 
-The [free browser-based RTL Loan Calculator](https://hyvoid.github.io/RTL_Loan_Sizer_Pricer/) lets you test the underwriting logic online immediately with no account required. The [paid offline Excel workbook](https://www.theseusworkshop.com/l/okqdlp?utm_source=github&utm_medium=GitHub%20README&utm_campaign=readme%20new%20launch&utm_content=residential-transitional-loan) gives you a permanent local file that you can customize with your own pricing grids, save per deal, reuse indefinitely for a one-time payment (with a 30-day money-back guarantee), and keep completely off third-party cloud servers.
+Yes. Pricing rules and buy-rate tables are isolated on `03_Pricing_&_Assumptions` and calculations on `04_Calc_Engine`, designed to support a protected **Originator Version** (locking/hiding pricing tabs) alongside your full **Internal Admin Version**.
+</details>
+
+---
+
+## Technical Details & Formula Audit
+
+<details>
+<summary><strong>Click to expand: 5-Tab Architecture, Security Model, Worked Fix-and-Flip Example, Formulas & Validation Rules</strong></summary>
+
+### Workbook Architecture (5 Layered Worksheets)
+
+The workbook strictly separates instructions, user inputs, confidential pricing grids, calculation engines, and client-facing quote outputs:
+
+```text
+01_ReadMe                 (Documentation, operating guide & version control)
+        │
+        ▼
+02_Inputs                 (Borrower, property & requested loan terms — Editable)
+        │
+        ▼
+03_Pricing_&_Assumptions  (Buy-rate grids, leverage caps & spread floors — Admin Only)
+        │
+        ▼
+04_Calc_Engine            (Underwriting, pricing & settlement formulas — Locked)
+        │
+        ▼
+05_Quote_Summary          (Printable client-ready preliminary term sheet — Locked)
+```
+
+| Worksheet | Role | Edit Access |
+| :--- | :--- | :--- |
+| **`01_ReadMe`** | Setup guide, version history, and administrator documentation | Editable |
+| **`02_Inputs`** | Borrower FICO, property values, rehab budget, and requested loan terms | Editable |
+| **`03_Pricing_&_Assumptions`** | Buy-rate grids, LTV/LTC/LTP/LTARV caps, fees, and spread floors | Administrators only |
+| **`04_Calc_Engine`** | All leverage, pricing lookup, settlement, and eligibility formulas | Locked |
+| **`05_Quote_Summary`** | Formatted client-facing quote and deal summary | Locked |
+
+### Dual-Format Security Design
+
+| Distribution Format | Intended Audience | Protection Design |
+| :--- | :--- | :--- |
+| **Internal Admin Version** | Principals, Underwriters, Capital Markets | All 5 tabs visible; pricing rules editable with admin password |
+| **Originator Version** | Loan Officers / External Reps | `03_Pricing_&_Assumptions` and `04_Calc_Engine` hidden (`xlSheetVeryHidden`), formula bar hidden, workbook structure locked |
+
+---
+
+### Worked Example Scenario (Fix-and-Flip Loan Sizing)
+
+| Deal Input | Value |
+| :--- | ---: |
+| Purchase Price | $300,000 |
+| Rehab Budget | $70,000 |
+| As-Is Property Value | $310,000 |
+| After Repair Value (ARV) | $465,000 |
+| Requested Loan Amount | $340,000 |
+| Borrower FICO / Experience | 726 / 6+ Projects |
+| Requested Note Rate / Term | 11.25% / 12 Months |
+
+**Automated Engine Outputs:**
+
+| Underwriting Metric | Calculated Result |
+| :--- | ---: |
+| Actual LTV (`340k / 310k`) | **109.7%** *(Exceeds preferred LTV)* |
+| Actual LTC (`340k / 370k`) | **91.9%** |
+| Actual LTARV (`340k / 465k`) | **73.1%** |
+| Lender Yield Spread | **3.10%** *(Valid — Clears Minimum Spread)* |
+| **Overall Eligibility Verdict** | **`EXCEPTION NEEDED`** |
+
+Rather than silently approving an over-leveraged loan or blindly rejecting a profitable repeat flipper, the engine classifies the file as **`EXCEPTION NEEDED`** so credit management can review compensating factors (experience, liquidity, or collateral) immediately.
+
+---
+
+### Core Formula Reference
+
+<details>
+<summary>Leverage & Pricing Formulas</summary>
+
+```excel
+Actual_LTV   = IFERROR(LoanAmount / AsIsValue, 0)
+Actual_LTC   = IFERROR(LoanAmount / (PurchasePrice + RehabBudget), 0)
+Actual_LTP   = IFERROR(LoanAmount / PurchasePrice, 0)
+Actual_LTARV = IF(ARV = 0, 0, IFERROR(LoanAmount / ARV, 0))
+
+Spread       = NoteRate - BuyRate
+SpreadStatus = IF(Spread < MinimumSpread, "Below Margin", "Valid")
+```
+
+*Pricing tables use exact `XLOOKUP` matching (with `TRIM` + `UPPER` text hygiene and fallback `"Check Risk Rules"` alerts).*
+
+</details>
+
+<details>
+<summary>Settlement & Liquidity Formulas</summary>
+
+```excel
+NetFunding         = LoanAmount - ShortInterest - ServiceFee
+CashToClose        = MAX(0, TotalProjectCost - NetFunding)
+LiquidityShortfall = MAX(0, CashToClose - LiquidAssets)
+```
+
+</details>
+
+---
+
+### Built-In Input Validation & Error Prevention Rules
+
+| Field | Validation Rule | Model Safeguard Behavior |
+| :--- | :--- | :--- |
+| **Loan Program** | Dropdown list only (Bridge / Light / Heavy / Construction) | Invalid entries blocked |
+| **Purchase Price & As-Is Value** | Greater than `0` | Prevents divide-by-zero errors |
+| **Rehab Budget** | Zeroed for Bridge loans | Field automatically grayed out via conditional formatting |
+| **ARV** | Required for Rehab/Construction programs | Displays `N/A` where not applicable |
+| **FICO Score** | `300` to `850` | Rejects out-of-range scores |
+| **Loan Term** | `12` / `18` / `24` months | Dropdown validation enforced |
+| **Short Interest Days** | `0` to `30` days | Invalid day counts rejected |
+| **Buy-Rate Lookup** | `XLOOKUP` with explicit fallback | Returns `"Check Risk Rules"` instead of `#N/A` |
+| **Spread Validation** | Compared against minimum spread floor | Flags `"Below Margin"` immediately |
+| **Overall Verdict** | Evaluates all leverage, margin & liquidity flags | Returns strictest status: `PASS`, `EXCEPTION NEEDED`, or `FAIL` |
+
 </details>
 
 ---
 
 ## About Theseus Workshop
 
-**Theseus Workshop** builds lightweight, reusable analytical workbooks for business and lending decisions where too many financial variables interact at once. Every template packages proven underwriting and commercial analysis logic into a clean offline Excel workflow so small teams and solo operators can reach consistent, defensible decisions in minutes.
+I build **plug-and-play Excel decision toolkits** for high-stakes lending, real estate, and business decisions where too many rules and numbers interact to track reliably in your head—without recurring SaaS subscriptions.
 
-The **RTL Loan Sizer & Pricer** puts underwriting limits, buy-rate pricing rules, leverage validation, settlement deductions, and client quote outputs on one screen so you always know whether a deal works before committing capital.
+Every workbook puts your guidelines, pricing rules, and risk checks on one clean offline screen so you can quote and decide with confidence in under a minute.
 
-Looking for more ready-to-use offline Excel financial models, pricing engines, and operational decision-support tools?  
-[Explore the Full Catalog of Offline Business & Finance Excel Templates at Theseus Workshop (theseusworkshop.com)](https://www.theseusworkshop.com)
+👉 **Explore all 25+ ready-to-use offline Excel templates:** [**Visit Theseus Workshop**](https://www.theseusworkshop.com?utm_source=github&utm_medium=GitHub%20README_About&utm_content=residential-transitional-loan)
 
-## Technical Details
+## More Ready-to-Use Business & Lending Decision Toolkits
 
-<details>
-<summary><strong>For technical reviewers, Excel practitioners, and collaborators</strong></summary>
+### Real Estate, Lending & Construction
+- **[real-estate-development-feasibility-excel](https://github.com/HyVoid/real-estate-development-feasibility-excel)** *(Free / $0+)* — At what maximum land price does a residential subdivision or townhouse build become a bankable investment?
+- **[Real-Estate-Valuation-all-in-one-calculator](https://github.com/HyVoid/Real-Estate-Valuation-all-in-one-calculator)** — Evaluate rentals, fix-and-flips, BRRRR, Airbnbs, and ground-up builds with a 60-month cash-shortfall radar.
+- **[Multifamily-Value-Add-Acquisition-Model](https://github.com/HyVoid/Multifamily-Value-Add-Acquisition-Model)** — Does a 5+ unit apartment acquisition still build equity after unit-by-unit rent roll rollovers and LTV/DSCR/Debt Yield loan caps?
+- **[construction-job-costing-excel-template](https://github.com/HyVoid/construction-job-costing-excel-template)** — Which contractor projects and clients are actually profitable after real site costs?
+- **[uk-residential-costing-software](https://github.com/HyVoid/uk-residential-costing-software)** — Will a UK residential build hit target margin once trade rates, waste factors, and site logistics shift?
 
----
+### Private Lending, Cash Flow & Budgeting
+- **[family-loan-tracker-excel](https://github.com/HyVoid/family-loan-tracker-excel)** — What is truly owed today after years of informal transfers and accrued interest?
+- **[investment-pool-nav-excel-template](https://github.com/HyVoid/investment-pool-nav-excel-template)** — What is each investor actually owed based on entry timing and current NAV?
+- **[rolling-cashflow-forecast](https://github.com/HyVoid/rolling-cashflow-forecast)** — Why is cash always tight, and when will liquidity dip next?
+- **[3-statement-financial-model-excel](https://github.com/HyVoid/3-statement-financial-model-excel)** — How do operating and financing choices flow through your integrated P&L, Balance Sheet, and Cash Flow?
+- **[Personal-Business-Dual-Track-Budget-Manager](https://github.com/HyVoid/Personal-Business-Dual-Track-Budget-Manager)** — Where are personal and business finances getting mixed up?
+- **[saas-finance-mrr-burn-rate-excel](https://github.com/HyVoid/saas-finance-mrr-burn-rate-excel)** — Can you afford this month's hiring and marketing without burning through runway?
+- **[startup-financial-model-excel](https://github.com/HyVoid/startup-financial-model-excel)** — Will growth run out of cash before customer cohorts pay back?
 
-## Workbook Architecture
+### E-Commerce, Retail & Marketplace Profitability
+- **[ecommerce-profit-calculator-excel](https://github.com/HyVoid/ecommerce-profit-calculator-excel)** — Which orders actually make money after shipping, payment fees, and marketplace commissions?
+- **[shopify-cash-flow-forecast-excel-toolkit](https://github.com/HyVoid/shopify-cash-flow-forecast-excel-toolkit)** — Which inventory and ad commitments will trigger a cash crunch in the next 12 weeks?
+- **[shopify-pnl-reconciliation-excel](https://github.com/HyVoid/shopify-pnl-reconciliation-excel)** — Is each Shopify store genuinely profitable once SKU COGS, bank charges, and shared OPEX are reconciled?
+- **[amazon-wbr-sqp-analytics-template](https://github.com/HyVoid/amazon-wbr-sqp-analytics-template)** — Which products and keywords actually drove this week's Amazon performance changes?
+- **[landed-cost-calculator-retail-deduction-excel](https://github.com/HyVoid/landed-cost-calculator-retail-deduction-excel)** — What is true net SKU margin after real freight, duties, and retailer deductions?
 
-The workbook follows a layered architecture that separates user interaction, business rules, analytical calculations, and presentation. This prevents accidental modification of pricing logic while keeping daily operation simple for loan originators.
+### Pricing, Manufacturing & Cost Allocation
+- **[b2b-pricing-landed-cost-excel-model](https://github.com/HyVoid/b2b-pricing-landed-cost-excel-model)** — Which wholesale prices preserve margin after freight, duties, payment terms, and FX?
+- **[food-manufacturing-cost-calculator-excel](https://github.com/HyVoid/food-manufacturing-cost-calculator-excel)** — Which SKUs are profitable after factory labor, utilities, overhead, and ingredients?
+- **[custom-label-pricing-calculator](https://github.com/HyVoid/custom-label-pricing-calculator)** — What should you quote at each quantity tier to stay competitive and profitable?
+- **[Revenue-Management-Decision-Engine](https://github.com/HyVoid/Revenue-Management-Decision-Engine)** — Has enough real demand changed to justify a price adjustment?
+- **[multi-entity-expense-allocation](https://github.com/HyVoid/multi-entity-expense-allocation)** — Are shared supplier invoices allocated fairly across entities and operating assets?
+- **[assisted-living-cost-allocation-excel](https://github.com/HyVoid/assisted-living-cost-allocation-excel)** — How much building margin is real versus distorted by corporate cost allocation?
 
-```text
-                    USER LAYER
- ┌─────────────────────────────────────┐
- │          01_ReadMe                  │
- │ Documentation & Version Control     │
- └─────────────────────────────────────┘
-                    │
-                    ▼
- ┌─────────────────────────────────────┐
- │          02_Inputs                  │
- │ Borrower & Loan Information         │
- └─────────────────────────────────────┘
-                    │
-                    ▼
- ┌─────────────────────────────────────┐
- │ 03_Pricing_&_Assumptions            │
- │ Pricing Rules & Risk Parameters     │
- └─────────────────────────────────────┘
-                    │
-                    ▼
- ┌─────────────────────────────────────┐
- │       04_Calc_Engine                │
- │ Underwriting & Pricing Logic        │
- └─────────────────────────────────────┘
-                    │
-                    ▼
- ┌─────────────────────────────────────┐
- │      05_Quote_Summary               │
- │ Client Ready Output                 │
- └─────────────────────────────────────┘
-```
-
-## Worksheet Responsibilities
-
-| Worksheet | Purpose | Editable |
-|------------|---------|----------|
-| 01_ReadMe | Instructions, version history, administrator documentation | Yes |
-| 02_Inputs | Borrower information and requested loan terms | Yes |
-| 03_Pricing_&_Assumptions | Buy rate grids, leverage rules, pricing assumptions | Administrators only |
-| 04_Calc_Engine | Underwriting calculations, pricing engine and validation | No |
-| 05_Quote_Summary | Client-facing printable term sheet | No |
+### Logistics, Cross-Border Trade & Service Operations
+- **[Multi-Currency-Trade-Financial-Analyzer](https://github.com/HyVoid/Multi-Currency-Trade-Financial-Analyzer)** — Which cross-border trade flows remain profitable after currency shifts?
+- **[freight-forwarder-job-costing-excel](https://github.com/HyVoid/freight-forwarder-job-costing-excel)** — Which freight bookings actually turn a profit across mixed currencies, fees, and container costs?
+- **[cross-entity-logistics-console](https://github.com/HyVoid/cross-entity-logistics-console)** — Which containers and clients are profitable across customs and fleet operations?
+- **[Flora-Pastry-Coffee-Shop-Operating-Control-System](https://github.com/HyVoid/Flora-Pastry-Coffee-Shop-Operating-Control-System)** — Is a cafe or bakery truly profitable after recipe costs, labor, and daily operating expenses?
+- **[travel-agency-accounting-excel-template](https://github.com/HyVoid/travel-agency-accounting-excel-template)** — Which tour bookings generate net profit and positive cash flow across currencies?
 
 ---
 
-## Data Flow
+## Questions, Feedback & Product Updates
 
-```text
-Borrower Inputs
-        │
-        ▼
-Input Validation
-        │
-        ▼
-Pricing Lookup
-        │
-        ▼
-Leverage Calculations
-        │
-        ▼
-Eligibility Validation
-        │
-        ▼
-Settlement Calculations
-        │
-        ▼
-Profitability Analysis
-        │
-        ▼
-Quote Summary
-```
+This repository supports **RTL Loan Sizer & Pricer**. Use the channels below to keep reproducible technical bugs separate from usage questions and workflow ideas:
 
-Every output displayed to users originates from the calculation engine. No values are manually entered into the final quote.
+- **Questions & workflow fit:** [Ask about loan programs, LTV/LTC/LTP/LTARV caps, FICO pricing grids, or Cash-to-Close in Community Q&A](https://github.com/HyVoid/business-decision-toolbox/discussions/categories/questions)
+- **Ideas & improvements:** [Suggest new loan programs, closing-cost rules, or quote outputs](https://github.com/HyVoid/business-decision-toolbox/discussions/categories/ideas)
+- **Product updates:** [Follow maintenance notes & new releases](https://github.com/HyVoid/business-decision-toolbox/discussions/categories/product-updates)
+- **Report a technical bug:** [Open a bug report](https://github.com/HyVoid/RTL_Loan_Sizer_Pricer/issues/new?template=bug-report.yml) with your Excel version, affected worksheet, and synthetic steps to reproduce.
 
----
+### Privacy & Disclaimer
 
-## Security Strategy
+**Never post real borrower names, property addresses, SSNs/tax IDs, credit reports, bank statements, internal lender buy rates, pricing grids, or live loan files** in public GitHub Issues or Discussions. Always use fictional IDs and synthetic example numbers.
 
-The workbook is intentionally compiled into two distribution formats.
+This workbook is an analytical decision-support tool and does **not** constitute legal advice, lending advice, underwriting approval, accounting guidance, regulatory compliance certification, or an investment recommendation. Users are responsible for verifying all assumptions, fee schedules, and lending guidelines before relying on outputs.
 
-| Version | Intended Users | Protected Components |
-|---------|----------------|----------------------|
-| Internal Version | Principals, Underwriters, Operations | All worksheets visible with administrator password |
-| Originator Version | Loan Originators | Pricing tables and calculation engine hidden using xlSheetVeryHidden |
+## License
 
-Additional protection measures include:
+This project is released under the **Apache License 2.0**.
 
-- Workbook Structure Protection
-- Hidden formulas
-- Locked calculation cells
-- Protected pricing grids
-- Hidden Formula Bar (Originator Version)
-- Password-protected worksheet structure
-
-This approach protects proprietary lender pricing without maintaining two independent workbooks.
-
----
-
-## Three Traps That Catch Even Experienced Loan Originators
-
----
-
-## Trap 1 — Looking Only at LTV
-
-Many lenders instinctively focus on Loan-to-Value because it is the most familiar underwriting metric.
-
-Unfortunately, Transitional Lending rarely relies on only one leverage ratio.
-
-### Incorrect Decision
-
-Purchase Price
-
-```
-$400,000
-```
-
-Requested Loan
-
-```
-$320,000
-```
-
-As-Is Value
-
-```
-$420,000
-```
-
-Calculated LTV
-
-```
-76.2%
-```
-
-The originator concludes:
-
-> "The loan fits within policy."
-
-However...
-
-Rehab Budget
-
-```
-$160,000
-```
-
-Total Project Cost
-
-```
-$560,000
-```
-
-Actual LTC
-
-```
-57.1%
-```
-
-Actual LTARV
-
-```
-88%
-```
-
-The LTARV exceeds internal policy.
-
-The loan is actually outside lending guidelines.
-
-### Correct Approach
-
-Evaluate:
-
-- LTV
-- LTC
-- LTARV
-- LTP
-
-before determining eligibility.
-
-<details>
-
-<summary>Formula Reference</summary>
-
-```excel
-Actual LTV
-=IFERROR(LoanAmount/AsIsValue,0)
-
-Actual LTC
-=IFERROR(LoanAmount/(PurchasePrice+RehabBudget),0)
-
-Actual LTARV
-=IF(ARV=0,0,
-IFERROR(LoanAmount/ARV,0))
-```
-
-</details>
-
-Result:
-
-The workbook automatically evaluates every leverage ratio together before assigning a Pass, Exception, or Fail status.
-
----
-
-## Trap 2 — Quoting Before Checking Margin
-
-A borrower requests an attractive rate.
-
-The originator lowers the note rate to remain competitive.
-
-Everything appears acceptable.
-
-Later...
-
-Secondary marketing discovers that lender spread has fallen below internal minimums.
-
-The quote must be revised.
-
-### Incorrect Decision
-
-Borrower Rate
-
-```
-10.00%
-```
-
-Buy Rate
-
-```
-8.20%
-```
-
-Spread
-
-```
-1.80%
-```
-
-Minimum Required Spread
-
-```
-2.50%
-```
-
-The transaction is actually below lender profitability requirements.
-
-### Correct Approach
-
-Every quote should validate pricing before presentation.
-
-<details>
-
-<summary>Formula Reference</summary>
-
-```excel
-Spread
-
-=NoteRate-BuyRate
-
-Spread Status
-
-=IF(
-Spread<MinimumSpread,
-"Below Margin",
-"Valid")
-```
-
-</details>
-
-Instead of discovering the problem during final review, the workbook immediately flags:
-
-```
-Below Margin
-```
-
-allowing pricing to be corrected before the borrower receives a quote.
-
----
-
-## Trap 3 — Underestimating Cash Required at Closing
-
-Many borrowers evaluate only the requested loan amount.
-
-Settlement costs reduce actual proceeds.
-
-Ignoring these deductions frequently produces unrealistic borrower expectations.
-
-### Example
-
-Requested Loan
-
-```
-$450,000
-```
-
-Short Interest
-
-```
-$6,250
-```
-
-Servicing Fee
-
-```
-$2,250
-```
-
-Net Funding
-
-```
-$441,500
-```
-
-Required Cash
-
-```
-$468,000
-```
-
-Actual Cash to Close
-
-```
-$26,500
-```
-
-If borrower liquidity equals only
-
-```
-$18,000
-```
-
-the loan cannot close without additional funds.
-
-### Correct Approach
-
-Calculate settlement proceeds rather than assuming gross loan amount equals available funding.
-
-<details>
-
-<summary>Formula Reference</summary>
-
-```excel
-Net Funding
-
-=LoanAmount
--ShortInterest
--ServiceFee
-
-Cash To Close
-
-=MAX(
-0,
-TotalProjectCost-
-NetFunding)
-
-Liquidity Shortfall
-
-=MAX(
-0,
-CashToClose-
-LiquidAssets)
-```
-
-</details>
-
-The workbook identifies liquidity shortages before closing documents are prepared.
-
----
-
-## Example Scenario
-
-Consider the following Fix-and-Flip transaction.
-
-| Item | Value |
-|------|------:|
-| Purchase Price | $300,000 |
-| Rehab Budget | $70,000 |
-| As-Is Value | $310,000 |
-| ARV | $465,000 |
-| Requested Loan | $340,000 |
-| FICO | 726 |
-| Experience | 6+ Projects |
-| Note Rate | 11.25% |
-| Loan Term | 12 Months |
-
-The pricing engine retrieves the corresponding Buy Rate based on the borrower's FICO tier and calculated leverage.
-
-The calculation engine then determines:
-
-- Actual LTV
-- Actual LTC
-- Actual LTP
-- Actual LTARV
-- Spread
-- Net Funding
-- Cash to Close
-- Estimated Lender Profit
-
-Suppose the resulting metrics are:
-
-| Metric | Result |
-|---------|-------:|
-| LTV | 109.7% |
-| LTC | 91.9% |
-| LTARV | 73.1% |
-| Spread | 3.10% |
-| Eligibility | Exception Needed |
-
-Although pricing remains profitable, leverage exceeds the preferred LTV threshold.
-
-Rather than immediately declining the loan, the workbook classifies it as **Exception Needed**, allowing management to review compensating factors such as borrower experience, liquidity, or additional collateral.
-
-This structured workflow creates a consistent underwriting process where pricing, leverage, settlement, and profitability are evaluated together rather than independently.
-
----
-
-## Formula Reference
-
-<details>
-
-<summary>Leverage Calculations</summary>
-
-| Calculation | Formula |
-|-------------|---------|
-| Actual LTV | `Loan Amount ÷ As-Is Value` |
-| Actual LTC | `Loan Amount ÷ (Purchase + Rehab)` |
-| Actual LTP | `Loan Amount ÷ Purchase Price` |
-| Actual LTARV | `Loan Amount ÷ ARV` |
-
-</details>
-
-<details>
-
-<summary>Pricing Engine</summary>
-
-| Formula | Purpose |
-|----------|----------|
-| XLOOKUP | Retrieve Buy Rate |
-| INDEX + MATCH | Legacy pricing lookup |
-| Spread | Note Rate − Buy Rate |
-| Spread Status | Margin validation |
-
-Pricing always uses exact lookup behavior with default error handling to prevent invalid pricing outputs.
-
-</details>
-
-<details>
-
-<summary>Settlement Calculations</summary>
-
-| Calculation | Purpose |
-|-------------|----------|
-| Short Interest | Interest collected at closing |
-| Servicing Fee | Fee deducted over loan term |
-| Net Funding | Funds available to borrower |
-| Cash to Close | Additional borrower contribution |
-| Liquidity Shortfall | Funding deficiency |
-
-</details>
-
-<details>
-
-<summary>Eligibility Rules</summary>
-
-The underwriting engine evaluates:
-
-- Maximum LTV
-- Maximum LTC
-- Maximum LTARV
-- Pricing Margin
-- Borrower Liquidity
-
-Possible outcomes:
-
-- PASS
-- EXCEPTION NEEDED
-- FAIL
-
-The overall eligibility always reflects the most restrictive underwriting result.
-
-</details>
-
-## Validation Rules
-
-| Field | Validation Rule | Error Behavior |
-|------|-----------------|----------------|
-| Loan Type | Dropdown only | Reject invalid values |
-| Purchase Price | Greater than zero | Return zero calculations |
-| As-Is Value | Greater than zero | Prevent divide-by-zero |
-| Rehab Budget | Zero for Bridge loans | Field automatically grayed out |
-| ARV | Required for rehab products | Display N/A where applicable |
-| Requested Loan | Positive currency | Reject negative values |
-| FICO | 300–850 | Reject invalid score |
-| Experience Tier | Dropdown only | Prevent lookup failures |
-| Loan Term | 12 / 18 / 24 months | Reject other values |
-| Short Interest Days | 0–30 | Reject invalid input |
-| Buy Rate Lookup | XLOOKUP with fallback value | "Check Risk Rules" |
-| Division Operations | IFERROR wrapper | Return 0 instead of Excel errors |
-| Text Lookups | TRIM + UPPER | Prevent spacing and case mismatches |
-| Margin Check | Compare against minimum spread | Return "Below Margin" |
-| Eligibility | Evaluate all underwriting flags | PASS / EXCEPTION NEEDED / FAIL |
-
-</details>
----
-
-## Other Tools in This Series
-
-The **RTL Loan Sizer / Pricer** is part of a growing collection of lightweight operational decision-support tools built for professionals who need reliable analysis without implementing enterprise software.
-
-Each tool follows the same principles:
-
-- **[rolling-cashflow-forecast](https://github.com/HyVoid/rolling-cashflow-forecast)** — Why is cash always tight? — Forecast future liquidity under changing operational and financial assumptions.
-- **[Multi-Currency-Trade-Financial-Analyzer](https://github.com/HyVoid/Multi-Currency-Trade-Financial-Analyzer)** — Which trade flows are actually profitable after currency effects? — Measure multi-currency trade profitability across cross-border operations.
-- **[Personal-Business-Dual-Track-Budget-Manager](https://github.com/HyVoid/Personal-Business-Dual-Track-Budget-Manager)** — Where is personal and business cash being mixed or misallocated? — Separate personal and business cash flows into independently tracked budget tracks.
-- **[Multifamily-Value-Add-Acquisition-Model](https://github.com/HyVoid/Multifamily-Value-Add-Acquisition-Model)** — Does this real estate acquisition still create equity value after renovation and operating assumptions? — Evaluate multifamily acquisition returns under renovation financing and operating scenarios.
-- **[Real-Estate-Valuation-all-in-one-calculator](https://github.com/HyVoid/Real-Estate-Valuation-all-in-one-calculator)** — What is a property worth under different valuation methods? — Calculate property value across multiple valuation methods with tax and capital expenditure modeling.
-- **[multi-entity-expense-allocation](https://github.com/HyVoid/multi-entity-expense-allocation)** — Are shared costs being allocated fairly across entities or are some assets overburdened while others escape their true cost exposure? — Distribute supplier invoices across multiple legal entities and operating assets using configurable allocation methodologies.
-- **[investment-pool-nav-excel-template](https://github.com/HyVoid/investment-pool-nav-excel-template)** — What is each participant actually owed based on their entry timing and current pool value? — Track investment pool ownership continuously using NAV-based unit accounting.
-- **[shopify-cash-flow-forecast-excel-toolkit](https://github.com/HyVoid/shopify-cash-flow-forecast-excel-toolkit)** — Which operational commitments will create a cash problem in the next twelve weeks? — Connect Shopify sales bank transactions advertising spend and inventory purchasing into a unified cash flow decision framework.
-- **[Revenue-Management-Decision-Engine](https://github.com/HyVoid/Revenue-Management-Decision-Engine)** — Has enough meaningful information changed to justify a pricing adjustment? — Govern pricing recommendations through configurable guard rails that prevent unnecessary revenue volatility.
-- **[amazon-wbr-sqp-analytics-template](https://github.com/HyVoid/amazon-wbr-sqp-analytics-template)** — What actually changed in the business this period and which products or keywords drove the change? — Transform Amazon Seller Central SQP and Sellerboard exports into standardized executive business reviews.
-- **[food-manufacturing-cost-calculator-excel](https://github.com/HyVoid/food-manufacturing-cost-calculator-excel)** — Which products are actually profitable after all manufacturing costs are allocated and which are destroying margin? — Allocate factory labor utilities overhead and material costs to every SKU for true unit manufacturing economics.
-- **[ecommerce-profit-calculator-excel](https://github.com/HyVoid/ecommerce-profit-calculator-excel)** — Which orders are actually profitable after all hidden costs and where is money leaking across channels and currencies? — Reconstruct true order-level profitability by reconciling sales payouts shipping costs payment fees and marketplace commissions across multi-channel e-commerce operations.
-- **[construction-job-costing-excel-template](https://github.com/HyVoid/construction-job-costing-excel-template)** — Which contractor projects and customers are actually profitable after all job costs? — Connect lead estimation, job execution, and actual cost tracking into a unified contractor profitability framework.
-- **[Flora-Pastry-Coffee-Shop-Operating-Control-System](https://github.com/HyVoid/Flora-Pastry-Coffee-Shop-Operating-Control-System)** — Is the shop genuinely profitable after all ingredient, labor, and operating costs? — Connect recipe costing, sales, inventory consumption, and operating expenses into a unified profitability and cash flow framework.
-- **[freight-forwarder-job-costing-excel](https://github.com/HyVoid/freight-forwarder-job-costing-excel)** — Which freight bookings are actually profitable after all costs, fees, and currency conversion? — Measure booking-level freight profitability by reconciling revenue, COGS, bank fees, and container costs across mixed-currency transactions.
-- **[cross-entity-logistics-console](https://github.com/HyVoid/cross-entity-logistics-console)** — Which containers and customers are actually profitable across customs and fleet operations? — Consolidate customs clearance and fleet execution data into a single container-level profitability view.
-- **[family-loan-tracker-excel](https://github.com/HyVoid/family-loan-tracker-excel)** — What is actually owed today after years of transfers and accrued interest? — Reconcile long-term fund transfers and interest accruals into a current outstanding balance.
-- **[3-statement-financial-model-excel](https://github.com/HyVoid/3-statement-financial-model-excel)** — What will our financial statements look like under different operating and financing scenarios? — Forecast integrated financial statements by linking revenue, expenses, working capital, and debt into a unified model.
-- **[assisted-living-cost-allocation-excel](https://github.com/HyVoid/assisted-living-cost-allocation-excel)** — How much of each building's reported margin is actually generated by that building versus by the way corporate costs were allocated? — Allocate shared expenses across operating units while preserving source transactions and reconciling unit-level results to company totals.
-- **[real-estate-development-feasibility-excel](https://github.com/HyVoid/real-estate-development-feasibility-excel)** — At what maximum land acquisition price does this development project become a bankable investment? — Evaluate residential development opportunities by screening land comparables, estimating construction costs, and calculating profit-on-cost thresholds.
-- **[uk-residential-costing-software](https://github.com/HyVoid/uk-residential-costing-software)** — Will this construction project actually hit its target margin once site logistics, waste factors, and trade rate changes are accounted for? — Separate physical building quantities from volatile trade rates and site preliminaries to cascade commercial markups across tender budgets and client quotations.
-- **[b2b-pricing-landed-cost-excel-model](https://github.com/HyVoid/b2b-pricing-landed-cost-excel-model)** — Which wholesale prices and customer segments actually preserve margin once freight, duties, payment terms, and FX are fully costed? — Calculate SKU-level landed costs, cost-to-serve, and pocket-margin price waterfalls to simulate cross-border wholesale profitability.
-- **[custom-label-pricing-calculator](https://github.com/HyVoid/custom-label-pricing-calculator)** — What should we charge for a custom label order at each quantity tier to stay competitive and profitable? — Calculate parametric label pricing by modeling substrate square-inch costs, setup charges, and quantity-tier discount breaks against competitor benchmarks.
-- **[landed-cost-calculator-retail-deduction-excel](https://github.com/HyVoid/landed-cost-calculator-retail-deduction-excel)** — What is the true net margin on each SKU once actual landed costs and retailer deductions are accounted for? — Reconcile PO-estimated landed costs against actual freight, duty, FX, and drayage charges while auditing retailer remittance deductions to expose SKU-level net margin.
-- **[saas-finance-mrr-burn-rate-excel](https://github.com/HyVoid/saas-finance-mrr-burn-rate-excel)** — Can we make this week's hiring, marketing, and vendor commitments without running out of cash before the books close? — Track weekly cash burn pacing, MRR/ARR waterfall variance, retention metrics, and payroll costs against budget before month-end close.
-- **[startup-financial-model-excel](https://github.com/HyVoid/startup-financial-model-excel)** — Will our growth plan run out of cash before cohort monetization catches up? — Forecast multi-year cash burn, runway, unit economics, and fundraising dilution from bottom-up cohort and headcount assumptions.
-- **[shopify-pnl-reconciliation-excel](https://github.com/HyVoid/shopify-pnl-reconciliation-excel)** — Is each Shopify storefront actually profitable once true SKU-level costs, shared expenses, and bank charges are reconciled? — Reconcile multi-store Shopify sales exports against SKU-level COGS, allocated multi-currency OPEX, and bank statements to produce a trustworthy monthly P&L.
-- **[travel-agency-accounting-excel-template](https://github.com/HyVoid/travel-agency-accounting-excel-template)** — Which tour bookings actually generate net profit and positive cash flow after supplier costs and B2B collections? — Calculate per-booking tour job costs, gross margins, AR/AP settlement, and operating cash flow across multiple currencies.
-
-| Tool | Purpose |
-|------|---------|
-| Construction Estimating System | Standardize project estimating, assemblies, bid pricing, and cost tracking. |
-| Inventory Forecasting & Reorder Planner | Forecast inventory demand, identify replenishment timing, and monitor stock risk. |
-| Retail & Maquila Inventory Ledger | Track piece-level inventory movement, production, defects, and distribution. |
-| Unified Personal & Business Budget Framework | Consolidate personal and business cash flow into one financial planning model. |
-| Cross-Border VAT Compliance Dashboard | Monitor VAT obligations across multiple countries and selling channels. |
-| Project Financial Control Dashboard | Compare budget, commitments, invoices, progress billing, and project profitability. |
-| Coffee Shop Operations Audit Toolkit | Evaluate café operational performance using standardized audit scoring and KPI analysis. |
-
----
-
-## Disclaimer
-
-This workbook is intended as an analytical decision-support tool.
-
-It does **not** constitute:
-
-- legal advice,
-- lending advice,
-- underwriting approval,
-- accounting guidance,
-- regulatory compliance certification,
-- investment recommendation.
-
-All loan decisions remain subject to the lending institution's underwriting policies, applicable regulations, investor requirements, and final credit approval.
-
-Users are responsible for verifying all assumptions, pricing parameters, fee schedules, and underwriting rules before relying on the generated outputs.
-
----
-
-## Acknowledgements
-
-This project reflects common underwriting practices used in Residential Transitional Lending, including Bridge Loans, Fix-and-Flip financing, Rehabilitation Loans, and Residential Construction Lending.
-
-Its architecture emphasizes transparency, repeatability, and operational consistency so that pricing decisions can be reproduced, reviewed, and audited rather than depending on individual spreadsheet knowledge.
-
----
-
-**Apache License 2.0 © 2026**
-
-Built as part of a broader collection of lightweight operational decision-support tools for finance, construction, inventory management, and business operations.
+See the repository `LICENSE` file for the complete terms and conditions.
